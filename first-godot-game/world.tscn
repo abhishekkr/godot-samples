@@ -1,10 +1,26 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://KinematicBody2D.gd" type="Script" id=1]
 [ext_resource path="res://Mouse-Rodent-Cheese-Rat-Mammal-Animal-Cartoon-152162.png" type="Texture" id=2]
 [ext_resource path="res://brick.png" type="Texture" id=3]
 [ext_resource path="res://cat.gd" type="Script" id=4]
 [ext_resource path="res://cat.png" type="Texture" id=5]
+
+[sub_resource type="CapsuleShape2D" id=2]
+
+custom_solver_bias = 0.0
+radius = 10.0
+height = 108.0
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 48, 32 )
+
+[sub_resource type="CircleShape2D" id=3]
+
+custom_solver_bias = 0.0
+radius = 10.0
 
 [node name="world" type="Node" index="0"]
 
@@ -23,6 +39,15 @@ scale = Vector2( 0.235408, 0.25 )
 texture = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="mouse" index="1"]
+
+position = Vector2( -1.90735e-06, -14.5 )
+scale = Vector2( 4.92308, 1.21642 )
+shape = SubResource( 2 )
+__meta__ = {
 "_edit_lock_": true
 }
 
@@ -48,6 +73,13 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="brick" index="1"]
+
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="cat" type="KinematicBody2D" parent="." index="2"]
 
 position = Vector2( 512, 480 )
@@ -63,6 +95,15 @@ modulate = Color( 0.304688, 0.289215, 0.289215, 1 )
 scale = Vector2( 0.55, 0.55 )
 texture = ExtResource( 5 )
 _sections_unfolded = [ "Material", "Transform", "Visibility" ]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cat" index="1"]
+
+position = Vector2( 32, 0 )
+scale = Vector2( 19.2106, 9.00086 )
+shape = SubResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }
