@@ -1,0 +1,317 @@
+[gd_scene load_steps=31 format=3 uid="uid://cgeavxekto4dl"]
+
+[ext_resource type="Texture2D" uid="uid://doghmovcgeltw" path="res://frogger/assets/graphics/map.png" id="1_ave2t"]
+[ext_resource type="Script" uid="uid://nxh8d2b6scyk" path="res://frogger/scenes/game.gd" id="1_uoqsx"]
+[ext_resource type="PackedScene" uid="uid://b1f3ysprne2on" path="res://frogger/scenes/object_tree.tscn" id="2_uoqsx"]
+[ext_resource type="PackedScene" uid="uid://8e1xg7ylf0xa" path="res://frogger/scenes/player.tscn" id="2_xio72"]
+[ext_resource type="Texture2D" uid="uid://d1h0ksxlju0ou" path="res://frogger/assets/graphics/objects/house1.png" id="5_5wil7"]
+[ext_resource type="Texture2D" uid="uid://73gfa8tjrcik" path="res://frogger/assets/graphics/objects/house3.png" id="6_0703a"]
+[ext_resource type="Texture2D" uid="uid://cxutqp0hti8vw" path="res://frogger/assets/graphics/objects/bench.png" id="7_o3144"]
+[ext_resource type="Texture2D" uid="uid://beho7qo80tneo" path="res://frogger/assets/graphics/objects/bin.png" id="8_onorn"]
+[ext_resource type="Texture2D" uid="uid://y78osdw0bolc" path="res://frogger/assets/graphics/objects/box1.png" id="9_qfcw0"]
+[ext_resource type="Texture2D" uid="uid://cv8cli0ov53f1" path="res://frogger/assets/graphics/objects/box2.png" id="10_0drnm"]
+[ext_resource type="Texture2D" uid="uid://b8fq8sgkmu4dx" path="res://frogger/assets/graphics/objects/green car.png" id="11_f2ebv"]
+[ext_resource type="Texture2D" uid="uid://b778fphjcav0" path="res://frogger/assets/graphics/objects/light.png" id="12_rhdpk"]
+[ext_resource type="Texture2D" uid="uid://cgvtilagem3np" path="res://frogger/assets/graphics/objects/red car.png" id="13_61qpn"]
+[ext_resource type="Texture2D" uid="uid://oqgtp468wc6x" path="res://frogger/assets/graphics/objects/sign.png" id="14_gwwkk"]
+[ext_resource type="Texture2D" uid="uid://cfe22lwgaf1k2" path="res://frogger/assets/graphics/objects/traffic.png" id="15_jg2h1"]
+[ext_resource type="Texture2D" uid="uid://y3ndpd5bhsi3" path="res://frogger/assets/graphics/objects/tree2.png" id="16_jt2yl"]
+[ext_resource type="Texture2D" uid="uid://boj6kq1t4mduj" path="res://frogger/assets/graphics/objects/tree potted.png" id="17_67q0l"]
+[ext_resource type="Texture2D" uid="uid://cuqeolw7yvunc" path="res://frogger/assets/graphics/objects/box3.png" id="18_a5tgg"]
+[ext_resource type="Texture2D" uid="uid://c5iy3tuxd0vaw" path="res://frogger/assets/graphics/objects/barrier.png" id="19_wxt15"]
+[ext_resource type="FontFile" uid="uid://hqpa84d2dqvp" path="res://frogger/assets/fonts/Better VCR 9.0.1.ttf" id="20_onorn"]
+[ext_resource type="AudioStream" uid="uid://cuu2n8lvufsm" path="res://frogger/assets/audio/abk-beepboop.wav" id="21_qfcw0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5wil7"]
+size = Vector2(95, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3mxb7"]
+size = Vector2(1.50419, 3.85758)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o66qk"]
+size = Vector2(8, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o3144"]
+size = Vector2(12, 17.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_onorn"]
+size = Vector2(4, 5.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qfcw0"]
+size = Vector2(10, 7)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0drnm"]
+size = Vector2(25, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f2ebv"]
+size = Vector2(8, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rhdpk"]
+size = Vector2(8, 5)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_uoqsx")
+
+[node name="BG" type="Sprite2D" parent="."]
+position = Vector2(192, 322)
+texture = ExtResource("1_ave2t")
+
+[node name="Border" type="StaticBody2D" parent="."]
+
+[node name="MapBoundary" type="CollisionPolygon2D" parent="Border"]
+position = Vector2(-1, 0)
+polygon = PackedVector2Array(-1, 5, 1, 642, 384, 641, 384, 3, -43, 8, -42, -16, 408, -17, 407, 659, -17, 663, -38, 3)
+
+[node name="FinishSpot" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FinishSpot"]
+position = Vector2(-3, 492)
+polygon = PackedVector2Array(65, 40, 0, 39, 2, 152, 387, 151, 389, 37, 115, 36, 116, 143, 69, 144)
+
+[node name="Objects" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="Objects" instance=ExtResource("2_xio72")]
+y_sort_enabled = true
+position = Vector2(222, 112)
+
+[node name="Trees" type="Node2D" parent="Objects"]
+
+[node name="Tree" parent="Objects/Trees" instance=ExtResource("2_uoqsx")]
+position = Vector2(12, 124)
+
+[node name="Tree2" parent="Objects/Trees" instance=ExtResource("2_uoqsx")]
+position = Vector2(102, 126)
+
+[node name="Tree3" parent="Objects/Trees" instance=ExtResource("2_uoqsx")]
+position = Vector2(314, 125)
+
+[node name="Tree4" parent="Objects/Trees" instance=ExtResource("2_uoqsx")]
+position = Vector2(376, 127)
+
+[node name="Tree5" parent="Objects/Trees" instance=ExtResource("2_uoqsx")]
+position = Vector2(105, 95)
+
+[node name="Tree6" parent="Objects/Trees" instance=ExtResource("2_uoqsx")]
+position = Vector2(308, 95)
+
+[node name="YadaYada" type="Node2D" parent="Objects"]
+y_sort_enabled = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Objects/YadaYada"]
+y_sort_enabled = true
+
+[node name="House1" type="Sprite2D" parent="Objects/YadaYada/StaticBody2D"]
+y_sort_enabled = true
+position = Vector2(204, 51)
+texture = ExtResource("5_5wil7")
+
+[node name="House1Collision" type="CollisionShape2D" parent="Objects/YadaYada/StaticBody2D"]
+y_sort_enabled = true
+position = Vector2(204.5, 63)
+shape = SubResource("RectangleShape2D_5wil7")
+
+[node name="House3" type="Sprite2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(30, 536)
+texture = ExtResource("6_0703a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(30.5, 550)
+scale = Vector2(29.9164, -8.29537)
+shape = SubResource("RectangleShape2D_3mxb7")
+
+[node name="Bench" type="Sprite2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(296, 117)
+texture = ExtResource("7_o3144")
+
+[node name="Box2" type="Sprite2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(297, 129)
+texture = ExtResource("10_0drnm")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(296, 123)
+shape = SubResource("RectangleShape2D_o66qk")
+
+[node name="Bin" type="Sprite2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(102, 179)
+texture = ExtResource("8_onorn")
+
+[node name="Barrier" type="Sprite2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(93, 189)
+texture = ExtResource("19_wxt15")
+
+[node name="Box1" type="Sprite2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(89, 180)
+texture = ExtResource("9_qfcw0")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Objects/YadaYada/StaticBody2D"]
+polygon = PackedVector2Array(82, 174, 99, 175, 106, 174, 105, 184, 101, 185, 101, 194, 86, 193, 84, 185)
+
+[node name="GreenCar" type="Sprite2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(80, 385)
+texture = ExtResource("11_f2ebv")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(80, 384.875)
+shape = SubResource("RectangleShape2D_o3144")
+
+[node name="GreenCar2" type="Sprite2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(336, 385)
+texture = ExtResource("11_f2ebv")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(336, 386)
+shape = SubResource("RectangleShape2D_o3144")
+
+[node name="Light" type="Sprite2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(62, 235)
+texture = ExtResource("12_rhdpk")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(62, 246.5)
+shape = SubResource("RectangleShape2D_onorn")
+
+[node name="Light2" type="Sprite2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(159, 237)
+texture = ExtResource("12_rhdpk")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(159, 248)
+shape = SubResource("RectangleShape2D_onorn")
+
+[node name="Light3" type="Sprite2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(299, 236)
+texture = ExtResource("12_rhdpk")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(299, 246)
+shape = SubResource("RectangleShape2D_onorn")
+
+[node name="RedCar" type="Sprite2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(367, 385)
+texture = ExtResource("13_61qpn")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(366, 384)
+shape = SubResource("RectangleShape2D_o3144")
+
+[node name="Sign" type="Sprite2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(181, 334)
+texture = ExtResource("14_gwwkk")
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(181, 346.25)
+shape = SubResource("RectangleShape2D_onorn")
+
+[node name="Traffic" type="Sprite2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(247, 336)
+texture = ExtResource("15_jg2h1")
+
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(251, 347)
+shape = SubResource("RectangleShape2D_onorn")
+
+[node name="TreePotted" type="Sprite2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(48, 356)
+texture = ExtResource("17_67q0l")
+
+[node name="CollisionShape2D11" type="CollisionShape2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(48, 368.5)
+shape = SubResource("RectangleShape2D_qfcw0")
+
+[node name="TreePotted2" type="Sprite2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(143, 357)
+texture = ExtResource("17_67q0l")
+
+[node name="CollisionShape2D12" type="CollisionShape2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(143, 369)
+shape = SubResource("RectangleShape2D_qfcw0")
+
+[node name="TreePotted3" type="Sprite2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(304, 357)
+texture = ExtResource("17_67q0l")
+
+[node name="CollisionShape2D13" type="CollisionShape2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(304, 369)
+shape = SubResource("RectangleShape2D_qfcw0")
+
+[node name="Tree2" type="Sprite2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(126, 530)
+texture = ExtResource("16_jt2yl")
+
+[node name="Box3" type="Sprite2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(112, 539)
+texture = ExtResource("18_a5tgg")
+
+[node name="CollisionShape2D14" type="CollisionShape2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(116.5, 539)
+shape = SubResource("RectangleShape2D_0drnm")
+
+[node name="Bench2" type="Sprite2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(366, 618)
+texture = ExtResource("7_o3144")
+
+[node name="CollisionShape2D16" type="CollisionShape2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(366, 619.5)
+shape = SubResource("RectangleShape2D_f2ebv")
+
+[node name="Bin2" type="Sprite2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(252, 389)
+texture = ExtResource("8_onorn")
+
+[node name="CollisionShape2D15" type="CollisionShape2D" parent="Objects/YadaYada/StaticBody2D"]
+position = Vector2(252, 391.5)
+shape = SubResource("RectangleShape2D_rhdpk")
+
+[node name="CarSpawnMarkers" type="Node2D" parent="."]
+
+[node name="Marker2D-R1" type="Marker2D" parent="CarSpawnMarkers"]
+position = Vector2(392, 218)
+
+[node name="Marker2D-L1" type="Marker2D" parent="CarSpawnMarkers"]
+position = Vector2(-11, 282)
+
+[node name="Marker2D-R2" type="Marker2D" parent="CarSpawnMarkers"]
+position = Vector2(393, 313)
+
+[node name="Marker2D-L2" type="Marker2D" parent="CarSpawnMarkers"]
+position = Vector2(-8, 424)
+
+[node name="Marker2D-R3" type="Marker2D" parent="CarSpawnMarkers"]
+position = Vector2(393, 474)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.423651, 0.423651, 0.423651, 1)
+theme_override_fonts/font = ExtResource("20_onorn")
+theme_override_font_sizes/font_size = 18
+text = "20"
+
+[node name="Timers" type="Node2D" parent="."]
+
+[node name="CarTimer" type="Timer" parent="Timers"]
+autostart = true
+
+[node name="ScoreTimer" type="Timer" parent="Timers"]
+autostart = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("21_qfcw0")
+pitch_scale = 0.78
+autoplay = true
+mix_target = 1
+playback_type = 1
+
+[connection signal="body_entered" from="FinishSpot" to="." method="_on_finish_spot_body_entered"]
+[connection signal="timeout" from="Timers/CarTimer" to="." method="_on_car_timer_timeout"]
+[connection signal="timeout" from="Timers/ScoreTimer" to="." method="_on_score_timer_timeout"]

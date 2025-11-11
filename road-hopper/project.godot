@@ -1,0 +1,36 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Road Hopper"
+config/description="Road Hppers
+
+1st game from ClearCode's 8+ hrs tutorial covering Basics and multiple projects
+
+Tutorial Reference: https://www.youtube.com/watch?v=TLG2yVpLDT8"
+run/main_scene="uid://cgeavxekto4dl"
+config/features=PackedStringArray("4.4", "Forward Plus")
+config/icon="uid://cimqjhyn2oh3m"
+
+[autoload]
+
+Global="*res://frogger/scenes/global.gd"
+
+[layer_names]
+
+2d_physics/layer_1="Map"
+2d_physics/layer_2="Player"
+2d_physics/layer_3="Objects"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+textures/vram_compression/import_etc2_astc=true

@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://odem3bckdrqo"]
+
+[ext_resource type="Script" uid="uid://dyqo0rx0o05yi" path="res://frogger/scenes/car.gd" id="1_fvbli"]
+[ext_resource type="Texture2D" uid="uid://ded8huv3lr1a7" path="res://frogger/assets/graphics/cars/yellow.png" id="1_okkq6"]
+[ext_resource type="Texture2D" uid="uid://ocjfhrelwysu" path="res://frogger/assets/graphics/cars/red.png" id="3_62djh"]
+[ext_resource type="Texture2D" uid="uid://d0dya2slufckd" path="res://frogger/assets/graphics/cars/green.png" id="4_cv43v"]
+[ext_resource type="AudioStream" uid="uid://c6r5ej5ssao8x" path="res://frogger/assets/audio/traffic-sample.wav" id="5_cv43v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fvbli"]
+size = Vector2(24, 15)
+
+[node name="Car" type="Area2D"]
+collision_layer = 4
+collision_mask = 6
+script = ExtResource("1_fvbli")
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="Sprite2DYellow" type="Sprite2D" parent="Sprites"]
+visible = false
+position = Vector2(0, -11)
+texture = ExtResource("1_okkq6")
+
+[node name="Sprite2DGreen" type="Sprite2D" parent="Sprites"]
+visible = false
+position = Vector2(0, -8)
+texture = ExtResource("4_cv43v")
+
+[node name="Sprite2DRed" type="Sprite2D" parent="Sprites"]
+visible = false
+position = Vector2(0, -11)
+texture = ExtResource("3_62djh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7.5)
+shape = SubResource("RectangleShape2D_fvbli")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, -10)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_cv43v")
+volume_db = 11.886
+autoplay = true
+max_distance = 100.0
+area_mask = 3
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

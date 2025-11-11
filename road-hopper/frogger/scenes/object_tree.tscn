@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1f3ysprne2on"]
+
+[ext_resource type="Texture2D" uid="uid://d0so81ys3820n" path="res://frogger/assets/graphics/objects/tree1.png" id="1_ks7vn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ks7vn"]
+size = Vector2(8, 7)
+
+[node name="ObjectTree" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 6
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -15)
+texture = ExtResource("1_ks7vn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6.5)
+shape = SubResource("RectangleShape2D_ks7vn")
