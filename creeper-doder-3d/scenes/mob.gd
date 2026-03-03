@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+signal squashed
+
 # Minimum speed of the mob in meters per second.
 @export var min_speed = 10
 # Maximum speed of the mob in meters per second.
@@ -26,4 +28,10 @@ func initialize(start_position, player_position):
 	velocity = velocity.rotated(Vector3.UP, rotation.y)
 
 func _on_visible_on_screen_notifier_3d_screen_exited():
+	queue_free()
+
+
+
+func squash():
+	squashed.emit()
 	queue_free()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://s8gl8rghn72v"]
+[gd_scene load_steps=5 format=3 uid="uid://s8gl8rghn72v"]
 
 [ext_resource type="PackedScene" uid="uid://d0ypm0v45pwdv" path="res://assets/visual/player.glb" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://cll4qyspwrgre" path="res://scenes/player.gd" id="1_g2els"]
@@ -8,7 +8,13 @@ margin = 1.0
 height = 1.0
 radius = 1.0
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_qhqgy"]
+height = 1.12402
+radius = 2.0
+
 [node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_g2els")
 
 [node name="Pivot" type="Node3D" parent="."]
@@ -17,3 +23,14 @@ script = ExtResource("1_g2els")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_g2els")
+
+[node name="HitDetector" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitDetector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.208723, 0)
+shape = SubResource("CylinderShape3D_qhqgy")
+debug_color = Color(0.845685, 0.252272, 0.704811, 0.42)
+
+[connection signal="body_entered" from="HitDetector" to="." method="_on_hit_detector_body_entered"]
