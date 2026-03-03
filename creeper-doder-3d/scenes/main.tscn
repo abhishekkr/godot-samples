@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://20bsyeaqstuq"]
+[gd_scene load_steps=12 format=3 uid="uid://20bsyeaqstuq"]
 
 [ext_resource type="Script" uid="uid://dfo3p0g1a4dmx" path="res://scenes/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://s8gl8rghn72v" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://dvq186pyloaxh" path="res://scenes/mob.tscn" id="2_sugp2"]
+[ext_resource type="FontFile" uid="uid://cyxhh7ddkn62q" path="res://assets/fonts/Montserrat-Medium.ttf" id="4_tbgi4"]
+[ext_resource type="Script" uid="uid://dnrrdxqaoc1ph" path="res://scenes/main_hud.gd" id="5_tefeu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sgp6g"]
 size = Vector3(62, 0.001, 61)
@@ -22,6 +24,10 @@ _data = {
 "tilts": PackedFloat32Array(0, 0, 0, 0)
 }
 point_count = 4
+
+[sub_resource type="Theme" id="Theme_o6xl0"]
+default_font = ExtResource("4_tbgi4")
+default_font_size = 24
 
 [node name="Main" type="Node"]
 script = ExtResource("1_0wfyh")
@@ -79,11 +85,56 @@ surface_material_override/0 = SubResource("StandardMaterial3D_jyhfs")
 curve = SubResource("Curve3D_tbgi4")
 
 [node name="SpawnLocation" type="PathFollow3D" parent="SpawnPath"]
-transform = Transform3D(-0.999997, 0, 0.00220266, 0, 1, 0, -0.00220266, 0, -0.999997, 28.1298, 0, -28.1915)
+transform = Transform3D(-0.999997, 0, 0.00220314, 0, 1, 0, -0.00220314, 0, -0.999997, 28.1298, 0, -28.1915)
 
 [node name="MobTimer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
 
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_o6xl0")
+script = ExtResource("5_tefeu")
+
+[node name="ScoreLabel" type="Label" parent="HUD"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0.662728, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Score: 0"
+
+[node name="Fin" type="Label" parent="HUD"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 17.937
+anchor_bottom = 13.478
+offset_left = 316.0
+offset_top = 228.0
+offset_right = -285.48
+offset_bottom = -232.12
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.765761, 0.791734, 0.244563, 1)
+theme_override_constants/line_spacing = 2
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 64
+text = "Fin."
+
+[node name="Retry" type="Button" parent="HUD"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 295.0
+offset_right = 424.0
+offset_bottom = 334.0
+theme_override_colors/font_hover_color = Color(0.396078, 0.972549, 0, 1)
+text = "RETRY..."
+
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
+[connection signal="pressed" from="HUD/Retry" to="." method="_on_retry_pressed"]

@@ -5,7 +5,7 @@
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_g2els"]
 margin = 1.0
-height = 1.0
+height = 0.75
 radius = 1.0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_qhqgy"]

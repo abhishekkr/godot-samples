@@ -5,7 +5,8 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	$HUD/Fin.hide()
+	$HUD/Retry.hide()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -30,7 +31,21 @@ func _on_mob_timer_timeout() -> void:
 
 	# Spawn the mob by adding it to the Main scene.
 	add_child(mob)
+	mob.squashed.connect($HUD._on_mob_squashed.bind())
 
 
 func _on_player_hit() -> void:
 	$MobTimer.stop()
+	$HUD/Fin.show()
+	$HUD/Retry.show()
+
+	
+func _unhandled_input(event):
+	if event.is_action_pressed("ui_accept") and $HUD/Retry.visible:
+		# This restarts the current scene.
+		get_tree().reload_current_scene()
+
+
+func _on_retry_pressed() -> void:
+	if $HUD/Retry.visible:
+		get_tree().reload_current_scene()

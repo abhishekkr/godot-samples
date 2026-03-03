@@ -43,7 +43,6 @@ func _physics_process(delta):
 
 	# Vertical Velocity
 	if not is_on_floor(): # If in the air, fall towards the floor. Literally gravity
-		print("not on floor")
 		target_velocity.y = target_velocity.y - (fall_acceleration * delta)
 
 	# Moving the Character
