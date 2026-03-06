@@ -18,6 +18,6 @@ func _process(delta: float) -> void:
 
 
 func _on_hurt_box_area_entered(area: Area2D) -> void:
-	print("SLIME KILLED YA")
+	GameManager.show_dead_msg()
 	print(area.get_parent().get_node_or_null("CollisionShape2D"))
 	area.get_parent().find_child("CollisionShape2D").queue_free()

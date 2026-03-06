@@ -3,8 +3,9 @@ extends Area2D
 @onready var timer = $Timer
 
 func _on_body_entered(_body: Node2D) -> void:
-	print("You Died.")
+	GameManager.show_dead_msg()
 	Engine.time_scale = 0.5
+	timer.wait_time = 2
 	timer.start()
 
 
