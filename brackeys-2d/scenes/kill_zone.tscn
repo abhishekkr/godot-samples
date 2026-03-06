@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cp07bvy6ll8pf"]
+
+[ext_resource type="Script" uid="uid://1sxu82yysqbn" path="res://scripts/kill_zone.gd" id="1_kebdr"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5csqv"]
+
+[node name="KillZone" type="Area2D"]
+collision_mask = 4
+script = ExtResource("1_kebdr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("WorldBoundaryShape2D_5csqv")
+debug_color = Color(0.832876, 0.120964, 0.50379, 0.42)
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

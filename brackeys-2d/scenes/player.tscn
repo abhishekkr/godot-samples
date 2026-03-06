@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://bopiput817w7l"]
+[gd_scene load_steps=42 format=3 uid="uid://bopiput817w7l"]
 
 [ext_resource type="Texture2D" uid="uid://uv1tt4w7yme4" path="res://assets/sprites/knight.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dxmfgmdbfyp31" path="res://scripts/player.gd" id="1_g2els"]
@@ -164,7 +164,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"death",
-"speed": 5.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -227,7 +227,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"roll",
-"speed": 5.0
+"speed": 16.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -280,11 +280,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"run",
-"speed": 5.0
+"speed": 8.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
 size = Vector2(10, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
+size = Vector2(12, 16)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 4
@@ -293,10 +296,19 @@ script = ExtResource("1_g2els")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_t4otl")
-animation = &"idle"
+animation = &"roll"
 autoplay = "idle"
-frame_progress = 0.915628
+frame_progress = 0.927841
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_3vyb7")
+
+[node name="PlayerHurtBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHurtBox"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_g2els")
+debug_color = Color(0.924998, 0.212407, 0.441139, 0.42)
