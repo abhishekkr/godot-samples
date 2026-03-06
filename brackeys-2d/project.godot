@@ -20,6 +20,13 @@ boot_splash/image="uid://d4cs75b1n7w4p"
 config/icon="uid://mnctthxkjeik"
 boot_splash/minimum_display_time=1750
 
+[layer_names]
+
+2d_physics/layer_1="world"
+2d_physics/layer_2="items"
+2d_physics/layer_3="player"
+2d_physics/layer_4="enemy"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
