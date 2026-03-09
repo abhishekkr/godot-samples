@@ -1,0 +1,17 @@
+# Godot 4+ specific ignores
+.godot/
+*swn
+*swo
+*swp
+*~
+*.tmp
+temp/*
+.bundle
+.venv
+.goenv
+.config
+*.cfg
+*.lock
+*.sock
+registry.terraform.io/**
+node_modules/**
