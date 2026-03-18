@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://h3tpmsivmval"]
+
+[ext_resource type="Script" uid="uid://cu2briabn1ob4" path="res://scripts/monster.gd" id="1_1cbnp"]
+[ext_resource type="PackedScene" uid="uid://ci6chg5svjvjq" path="res://crude/skeletonmonster3dmodel.glb" id="1_uwnm8"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1cbnp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1cbnp"]
+size = Vector3(5, 2, 7)
+
+[node name="Monster" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_1cbnp")
+metadata/_edit_group_ = true
+
+[node name="skeletonmonster3dmodel" parent="." instance=ExtResource("1_uwnm8")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_1cbnp")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 3)
+shape = SubResource("BoxShape3D_1cbnp")
+debug_color = Color(0.787411, 0.373763, 0.567547, 0.42)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]
