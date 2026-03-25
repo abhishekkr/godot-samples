@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://bvig63vsqkh8i"]
+
+[ext_resource type="Texture2D" uid="uid://cs5jr8sgkq4wg" path="res://assets/ground_shadow.png" id="1_1q5bg"]
+[ext_resource type="Texture2D" uid="uid://ewgtimke35g" path="res://assets/pine_tree.png" id="1_tn4rm"]
+
+[sub_resource type="Animation" id="Animation_tn4rm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PineTree:skew")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PineTree:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_1q5bg"]
+resource_name = "windy"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PineTree:skew")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.0333333, 1.4, 3.2666664),
+"transitions": PackedFloat32Array(1, 1, 1.3660406, 0.707107),
+"update": 0,
+"values": [0.0, 0.0994837673636766, 0.1099557428756427, -0.05585053606381859]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PineTree:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.4, 3.2666664),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.11170107212763668, 0.10995574287564296]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uny3i"]
+_data = {
+&"RESET": SubResource("Animation_tn4rm"),
+&"windy": SubResource("Animation_1q5bg")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tn4rm"]
+size = Vector2(32, 26)
+
+[node name="Tree" type="StaticBody2D" unique_id=1605381444]
+
+[node name="GroundShadow" type="Sprite2D" parent="." unique_id=1310448989]
+modulate = Color(0.5226205, 0.65361786, 0.61307424, 1)
+position = Vector2(0, 26.000004)
+scale = Vector2(0.88095236, 0.6634614)
+texture = ExtResource("1_1q5bg")
+
+[node name="PineTree" type="Sprite2D" parent="." unique_id=1059658522]
+position = Vector2(0, -50)
+texture = ExtResource("1_tn4rm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PineTree" unique_id=757272097]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_uny3i")
+autoplay = &"windy"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=828029744]
+position = Vector2(0, 9)
+shape = SubResource("RectangleShape2D_tn4rm")
+debug_color = Color(0.21344543, 0.5833747, 0.521301, 0.41960785)

@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://b54vqvila2xo5"]
+
+[ext_resource type="PackedScene" uid="uid://cknnvipy6b700" path="res://world/characters/player.tscn" id="1_u1r6w"]
+[ext_resource type="PackedScene" uid="uid://bvig63vsqkh8i" path="res://world/tree.tscn" id="2_kknfh"]
+
+[node name="Level01" type="Node2D" unique_id=885971997]
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=65930781]
+z_index = -5
+offset_right = 1149.0
+offset_bottom = 648.0
+color = Color(0.9384257, 0.89793384, 0.98654443, 1)
+
+[node name="YSortEnabled" type="Node2D" parent="." unique_id=1948439586]
+y_sort_enabled = true
+
+[node name="Player" parent="YSortEnabled" unique_id=1330950280 instance=ExtResource("1_u1r6w")]
+position = Vector2(740, 277)
+scale = Vector2(0.7, 0.7)
+
+[node name="TREES" type="Node2D" parent="YSortEnabled" unique_id=740677150]
+y_sort_enabled = true
+
+[node name="Tree" parent="YSortEnabled/TREES" unique_id=1605381444 instance=ExtResource("2_kknfh")]
+position = Vector2(130, 121)
+scale = Vector2(0.75, 0.75)
+
+[node name="Tree2" parent="YSortEnabled/TREES" unique_id=1594815567 instance=ExtResource("2_kknfh")]
+position = Vector2(1131, 596)
+scale = Vector2(0.75, 0.75)
+
+[node name="Tree3" parent="YSortEnabled/TREES" unique_id=2030883401 instance=ExtResource("2_kknfh")]
+position = Vector2(807, 204)
+scale = Vector2(0.75, 0.75)
+
+[node name="Tree4" parent="YSortEnabled/TREES" unique_id=831091936 instance=ExtResource("2_kknfh")]
+position = Vector2(31, 436)
+scale = Vector2(0.75, 0.75)
+
+[node name="Tree5" parent="YSortEnabled/TREES" unique_id=473094058 instance=ExtResource("2_kknfh")]
+position = Vector2(442, 624)
+scale = Vector2(0.75, 0.75)

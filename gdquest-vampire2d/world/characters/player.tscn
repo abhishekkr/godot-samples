@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cknnvipy6b700"]
+
+[ext_resource type="Script" uid="uid://bq1qsgtgkdhcr" path="res://world/characters/player.gd" id="1_3eadt"]
+[ext_resource type="PackedScene" uid="uid://bg0x323xq7wr8" path="res://world/characters/happy_boo/happy_boo.tscn" id="1_dnjla"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3eadt"]
+size = Vector2(68, 22)
+
+[node name="Player" type="CharacterBody2D" unique_id=1330950280]
+script = ExtResource("1_3eadt")
+metadata/_edit_group_ = true
+
+[node name="HappyBoo" parent="." unique_id=1091727253 instance=ExtResource("1_dnjla")]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1741490339]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_3eadt")
