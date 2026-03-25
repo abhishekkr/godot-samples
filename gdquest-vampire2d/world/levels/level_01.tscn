@@ -1,12 +1,16 @@
 [gd_scene format=3 uid="uid://b54vqvila2xo5"]
 
 [ext_resource type="PackedScene" uid="uid://cknnvipy6b700" path="res://world/characters/player.tscn" id="1_u1r6w"]
-[ext_resource type="PackedScene" uid="uid://bvig63vsqkh8i" path="res://world/tree.tscn" id="2_kknfh"]
+[ext_resource type="PackedScene" uid="uid://bvig63vsqkh8i" path="res://world/things/tree.tscn" id="2_kknfh"]
+[ext_resource type="PackedScene" uid="uid://w1pq1sk4i2b7" path="res://world/characters/enemy.tscn" id="3_g1vex"]
 
 [node name="Level01" type="Node2D" unique_id=885971997]
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=65930781]
-z_index = -5
+[node name="BGLayer" type="CanvasLayer" parent="." unique_id=1424685385]
+layer = -10
+
+[node name="ColorRect" type="ColorRect" parent="BGLayer" unique_id=65930781]
+z_index = -100
 offset_right = 1149.0
 offset_bottom = 648.0
 color = Color(0.9384257, 0.89793384, 0.98654443, 1)
@@ -21,22 +25,64 @@ scale = Vector2(0.7, 0.7)
 [node name="TREES" type="Node2D" parent="YSortEnabled" unique_id=740677150]
 y_sort_enabled = true
 
-[node name="Tree" parent="YSortEnabled/TREES" unique_id=1605381444 instance=ExtResource("2_kknfh")]
+[node name="Tree-TL1" parent="YSortEnabled/TREES" unique_id=1605381444 instance=ExtResource("2_kknfh")]
 position = Vector2(130, 121)
 scale = Vector2(0.75, 0.75)
 
-[node name="Tree2" parent="YSortEnabled/TREES" unique_id=1594815567 instance=ExtResource("2_kknfh")]
+[node name="Tree-TL2" parent="YSortEnabled/TREES" unique_id=369443775 instance=ExtResource("2_kknfh")]
+position = Vector2(75, 50.000008)
+scale = Vector2(0.75, 0.75)
+
+[node name="Tree-TL3" parent="YSortEnabled/TREES" unique_id=1289887260 instance=ExtResource("2_kknfh")]
+position = Vector2(34, 145)
+scale = Vector2(0.75, 0.75)
+
+[node name="Tree-BR1" parent="YSortEnabled/TREES" unique_id=1594815567 instance=ExtResource("2_kknfh")]
 position = Vector2(1131, 596)
 scale = Vector2(0.75, 0.75)
 
-[node name="Tree3" parent="YSortEnabled/TREES" unique_id=2030883401 instance=ExtResource("2_kknfh")]
+[node name="Tree-BR2" parent="YSortEnabled/TREES" unique_id=1633870308 instance=ExtResource("2_kknfh")]
+position = Vector2(1023, 644)
+scale = Vector2(0.75, 0.75)
+
+[node name="Tree-TR1" parent="YSortEnabled/TREES" unique_id=2030883401 instance=ExtResource("2_kknfh")]
 position = Vector2(807, 204)
 scale = Vector2(0.75, 0.75)
 
-[node name="Tree4" parent="YSortEnabled/TREES" unique_id=831091936 instance=ExtResource("2_kknfh")]
+[node name="Tree-TR2" parent="YSortEnabled/TREES" unique_id=1816960495 instance=ExtResource("2_kknfh")]
+position = Vector2(887.00006, 146)
+scale = Vector2(0.75, 0.75)
+
+[node name="Tree-TR3" parent="YSortEnabled/TREES" unique_id=2080896154 instance=ExtResource("2_kknfh")]
+position = Vector2(770.00006, 112)
+scale = Vector2(0.75, 0.75)
+
+[node name="Tree-ML1" parent="YSortEnabled/TREES" unique_id=831091936 instance=ExtResource("2_kknfh")]
 position = Vector2(31, 436)
 scale = Vector2(0.75, 0.75)
 
-[node name="Tree5" parent="YSortEnabled/TREES" unique_id=473094058 instance=ExtResource("2_kknfh")]
+[node name="Tree-ML2" parent="YSortEnabled/TREES" unique_id=1686577869 instance=ExtResource("2_kknfh")]
+position = Vector2(12.000002, 306.00003)
+scale = Vector2(0.75, 0.75)
+
+[node name="Tree-BM1" parent="YSortEnabled/TREES" unique_id=473094058 instance=ExtResource("2_kknfh")]
 position = Vector2(442, 624)
 scale = Vector2(0.75, 0.75)
+
+[node name="Tree-BM2" parent="YSortEnabled/TREES" unique_id=1188755367 instance=ExtResource("2_kknfh")]
+position = Vector2(361.00003, 659)
+scale = Vector2(0.75, 0.75)
+
+[node name="Mobs" type="Node2D" parent="YSortEnabled" unique_id=1523013663]
+
+[node name="Enemy" parent="YSortEnabled/Mobs" unique_id=1666772872 instance=ExtResource("3_g1vex")]
+position = Vector2(318, 245)
+scale = Vector2(0.5, 0.5)
+
+[node name="Enemy2" parent="YSortEnabled/Mobs" unique_id=2139287184 instance=ExtResource("3_g1vex")]
+position = Vector2(137, 244)
+scale = Vector2(0.5, 0.5)
+
+[node name="Enemy3" parent="YSortEnabled/Mobs" unique_id=1228058912 instance=ExtResource("3_g1vex")]
+position = Vector2(1089, 661)
+scale = Vector2(0.5, 0.5)

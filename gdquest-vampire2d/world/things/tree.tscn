@@ -69,6 +69,8 @@ _data = {
 size = Vector2(32, 26)
 
 [node name="Tree" type="StaticBody2D" unique_id=1605381444]
+collision_layer = 3
+collision_mask = 15
 
 [node name="GroundShadow" type="Sprite2D" parent="." unique_id=1310448989]
 modulate = Color(0.5226205, 0.65361786, 0.61307424, 1)

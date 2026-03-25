@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://xdh1q6t6t8gs"]
+
+[ext_resource type="Texture2D" uid="uid://bbpev0s2lfguy" path="res://assets/pistol/pistol.png" id="1_2xaku"]
+[ext_resource type="Script" uid="uid://dvlk42kqj8f0n" path="res://world/things/weapon.gd" id="1_cwh3m"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cwh3m"]
+radius = 458.0011
+
+[node name="Weapon" type="Area2D" unique_id=923757073]
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("1_cwh3m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=634279022]
+shape = SubResource("CircleShape2D_cwh3m")
+debug_color = Color(0.8578223, 0.26643607, 0.6341003, 0.41960785)
+
+[node name="WeaponPivot" type="Marker2D" parent="." unique_id=1799455010]
+
+[node name="Pistol" type="Sprite2D" parent="WeaponPivot" unique_id=277313827]
+position = Vector2(127, -25)
+texture = ExtResource("1_2xaku")
+
+[node name="BarrelMarker" type="Marker2D" parent="WeaponPivot/Pistol" unique_id=391663744]
+unique_name_in_owner = true
+position = Vector2(27, -12)

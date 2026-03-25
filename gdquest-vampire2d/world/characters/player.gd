@@ -8,7 +8,7 @@ func _ready() -> void:
 	player_body.play_idle_animation()
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if direction:
 		velocity = direction * SPEED
