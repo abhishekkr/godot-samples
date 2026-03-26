@@ -9,6 +9,8 @@
 
 * [Road Hoppers](./road-hopper): 2D game on `crossing the road` from [ClearCode's YT tutorial](https://www.youtube.com/watch?v=TLG2yVpLDT8)
 
+* [GDQuest's Vampire Survior Style](./gdquest-vampire2d): 2D game for quick shooter style from [GDQuest's Tutorial](https://www.youtube.com/watch?v=GwCiGixlqiU)
+
 ![godot-samples logo](godot-samples.png "Sample Godot Projects")
 
 ---

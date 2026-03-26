@@ -1,10 +1,19 @@
 [gd_scene format=3 uid="uid://b54vqvila2xo5"]
 
+[ext_resource type="Script" uid="uid://cwi2iaf2rnjdy" path="res://world/levels/level_01.gd" id="1_t4tjt"]
 [ext_resource type="PackedScene" uid="uid://cknnvipy6b700" path="res://world/characters/player.tscn" id="1_u1r6w"]
 [ext_resource type="PackedScene" uid="uid://bvig63vsqkh8i" path="res://world/things/tree.tscn" id="2_kknfh"]
 [ext_resource type="PackedScene" uid="uid://w1pq1sk4i2b7" path="res://world/characters/enemy.tscn" id="3_g1vex"]
+[ext_resource type="PackedScene" uid="uid://nscwqy2cg3dp" path="res://world/game_over.tscn" id="5_vmk8c"]
+
+[sub_resource type="Curve2D" id="Curve2D_vmk8c"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -116, -120, 0, 0, 0, 0, 1236, -118, 0, 0, 0, 0, 1221.5181, 744.9885, 0, 0, 0, 0, -122.20658, 736.04034, 0, 0, 0, 0, -116, -120)
+}
+point_count = 5
 
 [node name="Level01" type="Node2D" unique_id=885971997]
+script = ExtResource("1_t4tjt")
 
 [node name="BGLayer" type="CanvasLayer" parent="." unique_id=1424685385]
 layer = -10
@@ -21,6 +30,19 @@ y_sort_enabled = true
 [node name="Player" parent="YSortEnabled" unique_id=1330950280 instance=ExtResource("1_u1r6w")]
 position = Vector2(740, 277)
 scale = Vector2(0.7, 0.7)
+
+[node name="Path2D" type="Path2D" parent="YSortEnabled/Player" unique_id=405795514]
+position = Vector2(-1004.08704, -394.72104)
+scale = Vector2(1.3810227, 1.436848)
+curve = SubResource("Curve2D_vmk8c")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="YSortEnabled/Player/Path2D" unique_id=2009552907]
+unique_name_in_owner = true
+position = Vector2(-116, -120)
+rotation = 0.0014792888
+
+[node name="PathTimer" type="Timer" parent="YSortEnabled/Player/Path2D" unique_id=1697825136]
+unique_name_in_owner = true
 
 [node name="TREES" type="Node2D" parent="YSortEnabled" unique_id=740677150]
 y_sort_enabled = true
@@ -74,6 +96,7 @@ position = Vector2(361.00003, 659)
 scale = Vector2(0.75, 0.75)
 
 [node name="Mobs" type="Node2D" parent="YSortEnabled" unique_id=1523013663]
+unique_name_in_owner = true
 
 [node name="Enemy" parent="YSortEnabled/Mobs" unique_id=1666772872 instance=ExtResource("3_g1vex")]
 position = Vector2(318, 245)
@@ -86,3 +109,25 @@ scale = Vector2(0.5, 0.5)
 [node name="Enemy3" parent="YSortEnabled/Mobs" unique_id=1228058912 instance=ExtResource("3_g1vex")]
 position = Vector2(1089, 661)
 scale = Vector2(0.5, 0.5)
+
+[node name="GameOver" parent="." unique_id=1242263743 instance=ExtResource("5_vmk8c")]
+unique_name_in_owner = true
+
+[node name="Button" type="Button" parent="GameOver" unique_id=1002040633]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.0
+offset_top = 51.0
+offset_right = 54.0
+offset_bottom = 93.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "RESTART"
+
+[connection signal="health_depleted" from="YSortEnabled/Player" to="." method="_on_player_health_depleted"]
+[connection signal="timeout" from="YSortEnabled/Player/Path2D/PathTimer" to="." method="_on_path_timer_timeout"]
+[connection signal="pressed" from="GameOver/Button" to="." method="_on_button_pressed"]

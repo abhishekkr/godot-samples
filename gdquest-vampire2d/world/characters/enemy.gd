@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var SPEED: float = 100.0
 
+@onready var smoke_tscn = preload("res://world/effects/smoke_explosion.tscn")
 @onready var player = get_node_or_null("/root/Level01/YSortEnabled/Player")
 @onready var slime = $Slime
 @onready var death_timer = $Timer     
@@ -37,6 +38,9 @@ func got_hit() -> void:
 func _on_timer_timeout() -> void:
 	if is_enemy_dead:
 		queue_free()
+		var death_smoke = smoke_tscn.instantiate()
+		death_smoke.global_position = global_position
+		get_parent().add_child(death_smoke)
 	else:
 		is_enemy_hurt = false
 		slime.play_walk()
