@@ -8,9 +8,3 @@ func _ready() -> void:
 		light_tween.set_loops()
 		light_tween.tween_property(node, "energy", randf()+1, randf()+0.1)
 		light_tween.tween_property(node, "energy", randf(), 0.1)
-		
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

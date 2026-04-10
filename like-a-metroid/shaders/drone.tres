@@ -1,0 +1,30 @@
+[gd_resource type="VisualShader" format=3 uid="uid://b0ng2kn2nv1pv"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_dqc03"]
+input_name = "color"
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_ye6jr"]
+parameter_name = "ColorOverlay"
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_q7gvf"]
+parameter_name = "Progress"
+default_value_enabled = true
+default_value = 1.0
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_rc35p"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, Vector3(0.5, 0.5, 0.5)]
+op_type = 3
+
+[resource]
+mode = 1
+flags/light_only = false
+nodes/vertex/0/position = Vector2(720, 260)
+nodes/vertex/2/node = SubResource("VisualShaderNodeInput_dqc03")
+nodes/vertex/2/position = Vector2(100, 340)
+nodes/vertex/3/node = SubResource("VisualShaderNodeColorParameter_ye6jr")
+nodes/vertex/3/position = Vector2(100, 120)
+nodes/vertex/4/node = SubResource("VisualShaderNodeFloatParameter_q7gvf")
+nodes/vertex/4/position = Vector2(100, 440)
+nodes/vertex/5/node = SubResource("VisualShaderNodeMix_rc35p")
+nodes/vertex/5/position = Vector2(420, 220)
+nodes/vertex/connections = PackedInt32Array(5, 0, 0, 2, 3, 0, 5, 0, 2, 0, 5, 1, 4, 0, 5, 2)

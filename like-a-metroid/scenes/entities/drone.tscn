@@ -2,8 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://vyr0ks75oxum" path="res://assets/graphics/characters/drone.png" id="1_gs6nb"]
 [ext_resource type="Script" uid="uid://c70s0j11vlspw" path="res://scenes/entities/drone.gd" id="1_n87ok"]
+[ext_resource type="Shader" uid="uid://b0ng2kn2nv1pv" path="res://shaders/drone.tres" id="2_6vf5s"]
 [ext_resource type="Texture2D" uid="uid://bav7n447bnsa5" path="res://assets/graphics/fire/explosion.png" id="3_xcp44"]
 [ext_resource type="Texture2D" uid="uid://dijla4pisrrw8" path="res://assets/graphics/lights/main.png" id="4_0tq5o"]
+[ext_resource type="AudioStream" uid="uid://dtnqyh7corvdx" path="res://assets/audio/explosion.wav" id="6_in55t"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lvif6"]
 radius = 7.0
@@ -14,6 +16,11 @@ height = 302.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xcp44"]
 radius = 11.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_in55t"]
+shader = ExtResource("2_6vf5s")
+shader_parameter/ColorOverlay = Color(0, 0, 0, 1)
+shader_parameter/Progress = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n87ok"]
 atlas = ExtResource("1_gs6nb")
@@ -185,6 +192,7 @@ one_shot = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1754413880]
 unique_name_in_owner = true
 texture_filter = 1
+material = SubResource("ShaderMaterial_in55t")
 sprite_frames = SubResource("SpriteFrames_in55t")
 animation = &"hurt"
 autoplay = "default"
@@ -192,12 +200,17 @@ frame = 4
 frame_progress = 1.0
 
 [node name="PointLight2D" type="PointLight2D" parent="AnimatedSprite2D" unique_id=201936586]
+unique_name_in_owner = true
 position = Vector2(-1.3769523, 8.299097)
 scale = Vector2(0.28753906, 0.24598192)
 color = Color(0.8627451, 0.11372549, 0.011764706, 1)
 energy = 2.5
 texture = ExtResource("4_0tq5o")
 texture_scale = 0.5
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1110088887]
+unique_name_in_owner = true
+stream = ExtResource("6_in55t")
 
 [connection signal="body_entered" from="SensoryRange" to="." method="_on_sensory_range_body_entered"]
 [connection signal="body_exited" from="SensoryRange" to="." method="_on_sensory_range_body_exited"]
