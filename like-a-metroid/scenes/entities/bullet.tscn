@@ -7,12 +7,18 @@
 radius = 2.0
 
 [node name="Bullet" type="Area2D" unique_id=454634404]
+collision_layer = 8
+collision_mask = 5
 script = ExtResource("1_byxw7")
 
-[node name="Default" type="Sprite2D" parent="." unique_id=2059749891]
-scale = Vector2(0.5, 0.8333333)
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2059749891]
+texture_filter = 1
+position = Vector2(0, -8.940697e-08)
+scale = Vector2(0.6785714, 1.3333333)
 texture = ExtResource("1_ma0cl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1620211096]
 shape = SubResource("CircleShape2D_byxw7")
 debug_color = Color(0.81083184, 0.3646499, 0.50808346, 0.41960785)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

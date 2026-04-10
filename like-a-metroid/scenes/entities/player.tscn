@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dogmbqen506e" path="res://scenes/entities/player.gd" id="1_ucweq"]
 [ext_resource type="Texture2D" uid="uid://de5wf7al0hknv" path="res://assets/graphics/characters/player.png" id="2_08t41"]
+[ext_resource type="Texture2D" uid="uid://otyoj5px7yk7" path="res://assets/graphics/ui/crosshair.png" id="3_1ie0h"]
+[ext_resource type="Texture2D" uid="uid://dijla4pisrrw8" path="res://assets/graphics/lights/main.png" id="4_42nxq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0qees"]
 
@@ -138,6 +140,9 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D" unique_id=830762591]
+texture_filter = 1
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_ucweq")
 metadata/_edit_group_ = true
 
@@ -148,6 +153,12 @@ debug_color = Color(0.65368617, 0.5116514, 0.23623046, 0.41960785)
 [node name="Camera2D" type="Camera2D" parent="." unique_id=37538446]
 position = Vector2(77, -15)
 zoom = Vector2(3, 3)
+limit_left = -200
+limit_top = -185
+limit_right = 1400
+limit_bottom = 850
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
 
 [node name="ReloadTimer" type="Timer" parent="." unique_id=112563643]
 unique_name_in_owner = true
@@ -155,12 +166,6 @@ wait_time = 0.5
 one_shot = true
 
 [node name="Gunman" type="Node2D" parent="." unique_id=1922744389]
-
-[node name="GunMuzzel" type="Marker2D" parent="Gunman" unique_id=285315246]
-unique_name_in_owner = true
-modulate = Color(0.585062, 0.585062, 0.5850621, 1)
-top_level = true
-position = Vector2(14, -7)
 
 [node name="BodyWaistUp" type="Sprite2D" parent="Gunman" unique_id=674095629]
 unique_name_in_owner = true
@@ -181,3 +186,16 @@ frame = 8
 unique_name_in_owner = true
 root_node = NodePath("../../..")
 libraries/ = SubResource("AnimationLibrary_5u6hq")
+
+[node name="Crosshair" type="Sprite2D" parent="Gunman" unique_id=508088399]
+unique_name_in_owner = true
+position = Vector2(14, -7)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("3_1ie0h")
+
+[node name="PointLight2D" type="PointLight2D" parent="Gunman" unique_id=1766220190]
+energy = 0.75
+texture = ExtResource("4_42nxq")
+
+[node name="Bullets" type="Node2D" parent="." unique_id=1810211623]
+unique_name_in_owner = true

@@ -1,0 +1,207 @@
+[gd_scene format=3 uid="uid://ckdaiftxybghn"]
+
+[ext_resource type="Texture2D" uid="uid://vyr0ks75oxum" path="res://assets/graphics/characters/drone.png" id="1_gs6nb"]
+[ext_resource type="Script" uid="uid://c70s0j11vlspw" path="res://scenes/entities/drone.gd" id="1_n87ok"]
+[ext_resource type="Texture2D" uid="uid://bav7n447bnsa5" path="res://assets/graphics/fire/explosion.png" id="3_xcp44"]
+[ext_resource type="Texture2D" uid="uid://dijla4pisrrw8" path="res://assets/graphics/lights/main.png" id="4_0tq5o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lvif6"]
+radius = 7.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gs6nb"]
+radius = 78.0
+height = 302.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xcp44"]
+radius = 11.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n87ok"]
+atlas = ExtResource("1_gs6nb")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xcp44"]
+atlas = ExtResource("1_gs6nb")
+region = Rect2(32, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0tq5o"]
+atlas = ExtResource("1_gs6nb")
+region = Rect2(64, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6vf5s"]
+atlas = ExtResource("1_gs6nb")
+region = Rect2(96, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_in55t"]
+atlas = ExtResource("3_xcp44")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvif6"]
+atlas = ExtResource("3_xcp44")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h0gm0"]
+atlas = ExtResource("3_xcp44")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yxefg"]
+atlas = ExtResource("3_xcp44")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ubxui"]
+atlas = ExtResource("3_xcp44")
+region = Rect2(336, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_khhpe"]
+atlas = ExtResource("3_xcp44")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_87gur"]
+atlas = ExtResource("3_xcp44")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_foggq"]
+atlas = ExtResource("3_xcp44")
+region = Rect2(288, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nmfyk"]
+atlas = ExtResource("3_xcp44")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_in55t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n87ok")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xcp44")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0tq5o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6vf5s")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_in55t")
+}, {
+"duration": 0.1,
+"texture": null
+}, {
+"duration": 0.9,
+"texture": SubResource("AtlasTexture_lvif6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h0gm0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yxefg")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_ubxui")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_khhpe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_87gur")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_foggq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ubxui")
+}],
+"loop": false,
+"name": &"explosion",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nmfyk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n87ok")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xcp44")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0tq5o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6vf5s")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 8.0
+}]
+
+[node name="Drone" type="CharacterBody2D" unique_id=1724675323 groups=["Drones"]]
+collision_layer = 4
+collision_mask = 11
+script = ExtResource("1_n87ok")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1981777706]
+shape = SubResource("CircleShape2D_lvif6")
+
+[node name="SensoryRange" type="Area2D" parent="." unique_id=1402908435]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SensoryRange" unique_id=2039096071]
+position = Vector2(-35, 32)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_gs6nb")
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=169984476]
+collision_layer = 4
+collision_mask = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=172668503]
+shape = SubResource("CircleShape2D_xcp44")
+debug_color = Color(0.8159392, 0.3660003, 0.47637284, 0.41960785)
+
+[node name="TrackTimer" type="Timer" parent="." unique_id=345670561]
+unique_name_in_owner = true
+wait_time = 2.5
+one_shot = true
+
+[node name="DropTimer" type="Timer" parent="." unique_id=1905678331]
+unique_name_in_owner = true
+wait_time = 2.0
+one_shot = true
+
+[node name="RotateTimer" type="Timer" parent="." unique_id=2046782832]
+unique_name_in_owner = true
+wait_time = 0.25
+one_shot = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1754413880]
+unique_name_in_owner = true
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_in55t")
+animation = &"hurt"
+autoplay = "default"
+frame = 4
+frame_progress = 1.0
+
+[node name="PointLight2D" type="PointLight2D" parent="AnimatedSprite2D" unique_id=201936586]
+position = Vector2(-1.3769523, 8.299097)
+scale = Vector2(0.28753906, 0.24598192)
+color = Color(0.8627451, 0.11372549, 0.011764706, 1)
+energy = 2.5
+texture = ExtResource("4_0tq5o")
+texture_scale = 0.5
+
+[connection signal="body_entered" from="SensoryRange" to="." method="_on_sensory_range_body_entered"]
+[connection signal="body_exited" from="SensoryRange" to="." method="_on_sensory_range_body_exited"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="timeout" from="TrackTimer" to="." method="_on_track_timer_timeout"]
+[connection signal="timeout" from="DropTimer" to="." method="_on_drop_timer_timeout"]
+[connection signal="timeout" from="RotateTimer" to="." method="_on_rotate_timer_timeout"]

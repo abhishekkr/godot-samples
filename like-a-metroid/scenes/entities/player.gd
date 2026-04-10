@@ -1,8 +1,9 @@
 extends CharacterBody2D
 
 @onready var gunman = $Gunman
+@onready var bullets = %Bullets
 @onready var reload_timer = %ReloadTimer
-@onready var gun_muzzle = %GunMuzzel
+@onready var crosshair = %Crosshair
 @onready var body_upper = %BodyWaistUp
 @onready var body_lower = %BodyWaistDown
 @onready var body_lower_anim = %BodyWaistDownAnimation
@@ -18,20 +19,11 @@ const gun_directions = {
 	Vector2i(0,-1): 	6,
 	Vector2i(1,-1): 	7,
 }
-const muzzle_positions = {
-	Vector2i(1,0): 		Vector2(14.0, -7.0),
-	Vector2i(1,1): 		Vector2(8.0, 2.0),
-	Vector2i(0,1): 		Vector2(0.0, 1.0),
-	Vector2i(-1,1): 	Vector2(-8.0, 2.0),
-	Vector2i(-1,0): 	Vector2(-14.0, -7.0),
-	Vector2i(-1,-1): 	Vector2(-10.0, -15.0),
-	Vector2i(0,-1): 	Vector2(0.0, -23.0),
-	Vector2i(1,-1): 	Vector2(10.0, -15.0),
-}
 
 const SPEED: float = 150.0
-const JUMP_Y_OFFSET: float = -100.0
-const GRAVITY: float = 150.0
+const SPEED_WHEN_JUMPING: float = 100.0
+const JUMP_Y_OFFSET: float = -150.0
+const GRAVITY: float = 250.0
 var direction_x: float
 
 
@@ -48,7 +40,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	velocity.x = direction_x * SPEED
+	velocity.x = direction_x * speed()
 	if !is_on_floor():
 		velocity.y += GRAVITY * delta
 		body_lower_anim.current_animation = "jump"
@@ -63,11 +55,18 @@ func manage_torso_frame() -> void:
 	var raw_direction = get_local_mouse_position().normalized()
 	var adjusted_direction = Vector2i(round(raw_direction.x), round(raw_direction.y))
 	body_upper.frame = gun_directions[adjusted_direction]
-	gun_muzzle.position = muzzle_positions[adjusted_direction]
-	#gun_muzzle.look_at(raw_direction)
+	crosshair.position = raw_direction * 25
 
 
 func shoot() -> void:
 	var new_bullet = bullet_tscn.instantiate() as Area2D
-	new_bullet.setup(gun_muzzle.transform, get_local_mouse_position())
-	add_child(new_bullet)
+	new_bullet.setup(crosshair.transform, get_local_mouse_position())
+	bullets.add_child(new_bullet)
+	var tween = get_tree().create_tween()
+	tween.tween_property(crosshair, "scale", Vector2(0.15, 0.15), 0.2)
+	tween.tween_property(crosshair, "scale", Vector2(0.4, 0.4), 0.4)
+
+func speed() -> float:
+	if is_on_floor():
+		return SPEED
+	return SPEED_WHEN_JUMPING
