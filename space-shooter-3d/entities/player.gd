@@ -1,9 +1,16 @@
 extends CharacterBody3D
 
 signal shoot(pos: Vector3)
+signal game_over
 const SPEED = 5.0
 const JUMP_VELOCITY = 10
 var tick_sec: float = 0.0
+var hearts: int = 3
+
+
+func _ready() -> void:
+	%SpotLight3D.hide()
+
 
 func _physics_process(delta: float) -> void:
 	## Handle altitiude shift.
@@ -37,6 +44,16 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
+func got_hit() -> void:
+	%SpotLight3D.show()
+	$GotHitTimer.start()
+	hearts -= 1
+	if hearts > 0:
+		return
+	game_over.emit()
+	
+
+
 func check_perf(_delta: float) -> void:
 	var start = Time.get_ticks_usec()
 	tick_sec = start/1000000.0
@@ -46,3 +63,7 @@ func check_perf(_delta: float) -> void:
 	var end = Time.get_ticks_usec()
 	var worker_time = (end - start)/1000.0
 	print("Worker time: %s ms" % [worker_time])
+
+
+func _on_got_hit_timer_timeout() -> void:
+	%SpotLight3D.hide()

@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://vitokfv8vjqe" path="res://scenes/game.gd" id="1_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://bl7jq0rbikg0l" path="res://entities/player.tscn" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://cxp2uvr1jwgrv" path="res://assets/perlin-noise.jpg" id="2_yqjtg"]
-[ext_resource type="PackedScene" uid="uid://dr0jywu82lmw0" path="res://entities/meteor.tscn" id="4_lbhrr"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yqjtg"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -56,14 +55,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13580674, -0.6122021)
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -48.485)
 
-[node name="Meteor" parent="Meteors" unique_id=495496704 instance=ExtResource("4_lbhrr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5082183, 0, -13.301659)
-
 [node name="Timers" type="Node3D" parent="." unique_id=1199030220]
 
 [node name="MeteorTimer" type="Timer" parent="Timers" unique_id=118312772]
 unique_name_in_owner = true
 wait_time = 0.25
 
+[connection signal="game_over" from="Player" to="." method="_on_player_game_over"]
 [connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
 [connection signal="timeout" from="Timers/MeteorTimer" to="." method="_on_meteor_timer_timeout"]

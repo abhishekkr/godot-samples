@@ -21,3 +21,7 @@ func _on_meteor_timer_timeout() -> void:
 	var rand_scale = randf_range(0.75, 2.5)
 	meteor.scale = Vector3(rand_scale, rand_scale, rand_scale)
 	%Meteors.add_child(meteor)
+
+
+func _on_player_game_over() -> void:
+	print("GAME OVER")

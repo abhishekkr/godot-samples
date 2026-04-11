@@ -126,7 +126,10 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_pvbqg")
 
 [node name="Player" type="CharacterBody3D" unique_id=110510045]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_merdl")
+metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=887508565]
 transform = Transform3D(1, 0, 0, 0, 2.9802322e-08, 1, 0, -1, 2.9802322e-08, 0, 0.16311389, 0)
@@ -135,3 +138,21 @@ shape = SubResource("CapsuleShape3D_u3f3p")
 [node name="craft_speederA" type="MeshInstance3D" parent="." unique_id=1916079390]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.202492, 0)
 mesh = SubResource("ArrayMesh_axryp")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="craft_speederA" unique_id=1855836953]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1.116701, 0)
+light_color = Color(1, 0.19607843, 0, 1)
+light_energy = 10.0
+light_indirect_energy = 5.0
+light_volumetric_fog_energy = 1.5
+light_size = 0.5
+light_specular = 1.0
+spot_range = 1.578
+spot_attenuation = 3.57
+spot_angle = 61.04
+
+[node name="GotHitTimer" type="Timer" parent="." unique_id=1132402218]
+one_shot = true
+
+[connection signal="timeout" from="GotHitTimer" to="." method="_on_got_hit_timer_timeout"]
