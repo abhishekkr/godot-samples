@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://bl38peexug6jk"]
+
+[ext_resource type="Script" uid="uid://td4c067knfx6" path="res://entities/laser.gd" id="1_mxdet"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0sbgf"]
+albedo_color = Color(0.99999017, 0.2532465, 0.08040208, 1)
+metallic = 0.9
+roughness = 0.1
+emission_enabled = true
+emission = Color(1, 0.443684, 0.37509552, 1)
+emission_energy_multiplier = 6.68
+grow_amount = 0.1
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_mxdet"]
+material = SubResource("StandardMaterial3D_0sbgf")
+radius = 0.05
+height = 1.75
+radial_segments = 30
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0sbgf"]
+radius = 0.1
+height = 0.75
+
+[node name="Laser" type="Area3D" unique_id=857881513]
+script = ExtResource("1_mxdet")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1798601922]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.0013414621, 0.10520792, -0.08842707)
+mesh = SubResource("CapsuleMesh_mxdet")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=341311970]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.0013414621, 0.10520792, -0.08842707)
+shape = SubResource("CapsuleShape3D_0sbgf")

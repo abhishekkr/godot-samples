@@ -1,0 +1,7 @@
+graphics
+https://kenney.nl/assets/space-kit
+
+audio
+laser sound (8): https://opengameart.org/content/laser-fire
+explosion: https://opengameart.org/content/explosion-0
+music: https://opengameart.org/content/space-music

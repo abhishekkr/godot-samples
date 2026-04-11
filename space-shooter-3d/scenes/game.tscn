@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://2uik7c1wtnk7"]
+
+[ext_resource type="Script" uid="uid://vitokfv8vjqe" path="res://scenes/game.gd" id="1_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://bl7jq0rbikg0l" path="res://entities/player.tscn" id="1_uwrxv"]
+[ext_resource type="Texture2D" uid="uid://cxp2uvr1jwgrv" path="res://assets/perlin-noise.jpg" id="2_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://dr0jywu82lmw0" path="res://entities/meteor.tscn" id="4_lbhrr"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yqjtg"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_lnu2h"]
+sky_material = SubResource("ProceduralSkyMaterial_yqjtg")
+
+[sub_resource type="Environment" id="Environment_lbhrr"]
+background_mode = 2
+sky = SubResource("Sky_lnu2h")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lnu2h"]
+shading_mode = 2
+albedo_color = Color(0.5324491, 0.33735877, 0.18765616, 1)
+albedo_texture = ExtResource("2_yqjtg")
+metallic_specular = 0.25
+roughness_texture = ExtResource("2_yqjtg")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_yqjtg"]
+material = SubResource("StandardMaterial3D_lnu2h")
+size = Vector2(100, 100)
+
+[node name="Game" type="Node3D" unique_id=1250458625]
+script = ExtResource("1_lbhrr")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=281676424]
+environment = SubResource("Environment_lbhrr")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1593903291]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." unique_id=110510045 instance=ExtResource("1_uwrxv")]
+
+[node name="FloorMesh" type="MeshInstance3D" parent="." unique_id=1110857845]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("PlaneMesh_yqjtg")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=2073524746]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 2, 2)
+
+[node name="Lasers" type="Node3D" parent="." unique_id=110988638]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13580674, -0.6122021)
+
+[node name="Meteors" type="Node3D" parent="." unique_id=1628295440]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -48.485)
+
+[node name="Meteor" parent="Meteors" unique_id=495496704 instance=ExtResource("4_lbhrr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5082183, 0, -13.301659)
+
+[node name="Timers" type="Node3D" parent="." unique_id=1199030220]
+
+[node name="MeteorTimer" type="Timer" parent="Timers" unique_id=118312772]
+unique_name_in_owner = true
+wait_time = 0.25
+
+[connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
+[connection signal="timeout" from="Timers/MeteorTimer" to="." method="_on_meteor_timer_timeout"]
