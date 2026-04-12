@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://vitokfv8vjqe" path="res://scenes/game.gd" id="1_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://bl7jq0rbikg0l" path="res://entities/player.tscn" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://cxp2uvr1jwgrv" path="res://assets/perlin-noise.jpg" id="2_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://cnys70nyshjmd" path="res://entities/obstacles.tscn" id="3_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://dr0jywu82lmw0" path="res://entities/meteor.tscn" id="4_lbhrr"]
+[ext_resource type="AudioStream" uid="uid://cni2337epnkry" path="res://assets/audio/spaceship.wav" id="6_p57ef"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yqjtg"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -14,19 +17,95 @@ sky_material = SubResource("ProceduralSkyMaterial_yqjtg")
 [sub_resource type="Environment" id="Environment_lbhrr"]
 background_mode = 2
 sky = SubResource("Sky_lnu2h")
+sky_custom_fov = 1.7
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lnu2h"]
-shading_mode = 2
-albedo_color = Color(0.5324491, 0.33735877, 0.18765616, 1)
-albedo_texture = ExtResource("2_yqjtg")
-metallic_specular = 0.25
-roughness_texture = ExtResource("2_yqjtg")
+[sub_resource type="Shader" id="Shader_p57ef"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.6.1.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx, vertex_lighting;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform ivec2 albedo_texture_size;
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+
+uniform float roughness : hint_range(0.0, 1.0);
+uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+
+uniform float specular : hint_range(0.0, 1.0, 0.01);
+uniform float metallic : hint_range(0.0, 1.0, 0.01);
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+uniform sampler2D noise_texture;
+
+void vertex() {
+	// Shading Mode: Per Vertex
+	ROUGHNESS = roughness;
+
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+	//
+	float noise_sample = texture(noise_texture, UV).r;
+	VERTEX += vec3(0.0, noise_sample*0.75, 0.0);
+	//VERTEX = vec3(0.0, 1.0, 0.0);
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+	float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	SPECULAR = specular;
+
+	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+}
+"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_p57ef"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_u5sy4"]
+noise = SubResource("FastNoiseLite_p57ef")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p57ef"]
+render_priority = 0
+shader = SubResource("Shader_p57ef")
+shader_parameter/albedo = Color(0.5324491, 0.33735877, 0.18765616, 1)
+shader_parameter/texture_albedo = ExtResource("2_yqjtg")
+shader_parameter/albedo_texture_size = Vector2i(200, 200)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/texture_roughness = ExtResource("2_yqjtg")
+shader_parameter/specular = 0.25
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_u5sy4")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_yqjtg"]
-material = SubResource("StandardMaterial3D_lnu2h")
+lightmap_size_hint = Vector2i(502, 502)
+material = SubResource("ShaderMaterial_p57ef")
 size = Vector2(100, 100)
+subdivide_width = 50
+subdivide_depth = 50
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p57ef"]
+size = Vector3(50, 1, 1)
 
 [node name="Game" type="Node3D" unique_id=1250458625]
 script = ExtResource("1_lbhrr")
@@ -40,12 +119,8 @@ shadow_enabled = true
 
 [node name="Player" parent="." unique_id=110510045 instance=ExtResource("1_uwrxv")]
 
-[node name="FloorMesh" type="MeshInstance3D" parent="." unique_id=1110857845]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-mesh = SubResource("PlaneMesh_yqjtg")
-
 [node name="Camera3D" type="Camera3D" parent="." unique_id=2073524746]
-transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 2, 2)
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 6.5, 3)
 
 [node name="Lasers" type="Node3D" parent="." unique_id=110988638]
 unique_name_in_owner = true
@@ -55,12 +130,145 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13580674, -0.6122021)
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -48.485)
 
+[node name="Meteor" parent="Meteors" unique_id=495496704 instance=ExtResource("4_lbhrr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0399609, 0, 24.397293)
+
+[node name="Obstacles" type="Node3D" parent="." unique_id=1905057225]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -64.29707)
+
+[node name="Obstacles" parent="Obstacles" unique_id=833591895 instance=ExtResource("3_lbhrr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.054408, 0, 51.456627)
+
+[node name="Obstacles2" parent="Obstacles" unique_id=1683760042 instance=ExtResource("3_lbhrr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.102138, 0, 34.24857)
+
 [node name="Timers" type="Node3D" parent="." unique_id=1199030220]
 
 [node name="MeteorTimer" type="Timer" parent="Timers" unique_id=118312772]
 unique_name_in_owner = true
 wait_time = 0.25
 
+[node name="ObstacleTimer" type="Timer" parent="Timers" unique_id=1801368744]
+wait_time = 1.75
+autostart = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=551998115]
+
+[node name="Score" type="Label" parent="CanvasLayer" unique_id=601801130]
+unique_name_in_owner = true
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -94.0
+offset_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 0.85490197, 0.3254902, 1)
+theme_override_colors/font_shadow_color = Color(0.20784314, 0.20784314, 0.20784314, 0.9098039)
+theme_override_colors/font_outline_color = Color(0, 0.43584347, 0, 1)
+theme_override_constants/line_spacing = 5
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 48
+text = "0 "
+horizontal_alignment = 2
+
+[node name="Hearts" type="RichTextLabel" parent="CanvasLayer" unique_id=462119156]
+unique_name_in_owner = true
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -99.0
+offset_right = 175.0
+grow_vertical = 0
+theme_override_font_sizes/normal_font_size = 48
+text = " ❤️❤️❤️"
+
+[node name="GameOverMenu" type="VBoxContainer" parent="CanvasLayer" unique_id=1361850896]
+unique_name_in_owner = true
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -69.0
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameOver" type="Label" parent="CanvasLayer/GameOverMenu" unique_id=1352730710]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.24313726, 0.3529412, 1)
+theme_override_colors/font_shadow_color = Color(0.81960785, 0, 0, 0.7882353)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 10
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/outline_size = 2
+theme_override_constants/shadow_outline_size = 1
+theme_override_font_sizes/font_size = 75
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="CanvasLayer/GameOverMenu" unique_id=1134593206]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.56078434, 0.8862745, 0.20784314, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "R E S T A R T"
+
+[node name="ExitButton" type="Button" parent="CanvasLayer/GameOverMenu" unique_id=483347891]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.8745098, 0.3254902, 0.8745098, 1)
+theme_override_colors/font_hover_color = Color(0.95686275, 0.30588236, 0.15686275, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 28
+text = "E X I T"
+
+[node name="Floors" type="Node3D" parent="." unique_id=2135723584]
+
+[node name="FloorMesh1" type="MeshInstance3D" parent="Floors" unique_id=1110857845]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.15, -15)
+mesh = SubResource("PlaneMesh_yqjtg")
+
+[node name="FloorMesh2" type="MeshInstance3D" parent="Floors" unique_id=1538190723]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.15, -115)
+mesh = SubResource("PlaneMesh_yqjtg")
+
+[node name="AirCraftBlockers" type="StaticBody3D" parent="Floors" unique_id=1329346025]
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3DBehind" type="CollisionShape3D" parent="Floors/AirCraftBlockers" unique_id=1008743598]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5356941)
+shape = SubResource("BoxShape3D_p57ef")
+debug_color = Color(0.66379416, 0.51036614, 0.14387444, 0.41960785)
+
+[node name="CollisionShape3DLeft" type="CollisionShape3D" parent="Floors/AirCraftBlockers" unique_id=1994592752]
+transform = Transform3D(0.5735764, 0, -0.819152, 0, 1, 0, 0.819152, 0, 0.5735764, -21, 0, -14.5)
+shape = SubResource("BoxShape3D_p57ef")
+debug_color = Color(0.66379416, 0.51036614, 0.14387444, 0.41960785)
+
+[node name="CollisionShape3DRight" type="CollisionShape3D" parent="Floors/AirCraftBlockers" unique_id=177386576]
+transform = Transform3D(0.5735764, 0, 0.81915194, 0, 1, 0, -0.81915194, 0, 0.5735764, 21, 0, -14.5)
+shape = SubResource("BoxShape3D_p57ef")
+debug_color = Color(0.66379416, 0.51036614, 0.14387444, 0.41960785)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=732546110]
+stream = ExtResource("6_p57ef")
+volume_db = -10.0
+autoplay = true
+
 [connection signal="game_over" from="Player" to="." method="_on_player_game_over"]
+[connection signal="player_hurt" from="Player" to="." method="_on_player_player_hurt"]
 [connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
 [connection signal="timeout" from="Timers/MeteorTimer" to="." method="_on_meteor_timer_timeout"]
+[connection signal="timeout" from="Timers/ObstacleTimer" to="." method="_on_obstacle_timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/GameOverMenu/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/GameOverMenu/ExitButton" to="." method="_on_exit_button_pressed"]

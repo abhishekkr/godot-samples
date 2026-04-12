@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://bl7jq0rbikg0l"]
 
 [ext_resource type="Script" uid="uid://bfb3lkhw8ric4" path="res://entities/player.gd" id="1_merdl"]
+[ext_resource type="AudioStream" uid="uid://u1xrxd5nnix6" path="res://assets/audio/laser8.wav" id="2_b0kkn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u3f3p"]
 radius = 0.35
@@ -154,5 +155,8 @@ spot_angle = 61.04
 
 [node name="GotHitTimer" type="Timer" parent="." unique_id=1132402218]
 one_shot = true
+
+[node name="HurtAudio" type="AudioStreamPlayer3D" parent="." unique_id=1409467790]
+stream = ExtResource("2_b0kkn")
 
 [connection signal="timeout" from="GotHitTimer" to="." method="_on_got_hit_timer_timeout"]

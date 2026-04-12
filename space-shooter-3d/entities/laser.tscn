@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bl38peexug6jk"]
 
 [ext_resource type="Script" uid="uid://td4c067knfx6" path="res://entities/laser.gd" id="1_mxdet"]
+[ext_resource type="AudioStream" uid="uid://dsliit0q61j6f" path="res://assets/audio/laser1.wav" id="2_byvr5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0sbgf"]
 albedo_color = Color(0.99999017, 0.2532465, 0.08040208, 1)
@@ -21,7 +22,7 @@ radial_segments = 30
 radius = 0.1
 height = 0.75
 
-[node name="Laser" type="Area3D" unique_id=857881513]
+[node name="Laser" type="Area3D" unique_id=857881513 groups=["Lasers"]]
 collision_layer = 8
 collision_mask = 4
 script = ExtResource("1_mxdet")
@@ -33,3 +34,6 @@ mesh = SubResource("CapsuleMesh_mxdet")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=341311970]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.0013414621, 0.10520792, -0.08842707)
 shape = SubResource("CapsuleShape3D_0sbgf")
+
+[node name="TinyAudio" type="AudioStreamPlayer3D" parent="." unique_id=1572076993]
+stream = ExtResource("2_byvr5")

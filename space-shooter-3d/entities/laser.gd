@@ -6,7 +6,9 @@ var origin_z: float = 0.0
 var vanishing_distance: float = 50.0
 var vanished: bool = false
 
+
 func _ready() -> void:
+	$TinyAudio.play()
 	scale = Vector3(0.05, 0.05, 0.05)
 	origin_z = position.z
 	var laser_tween = create_tween()

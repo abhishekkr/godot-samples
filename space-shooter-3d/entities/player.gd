@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 signal shoot(pos: Vector3)
+signal player_hurt(lives_left: int)
 signal game_over
 const SPEED = 5.0
 const JUMP_VELOCITY = 10
@@ -13,6 +14,9 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if hearts <= 0:
+		rotate_z(-25.0)
+		return
 	## Handle altitiude shift.
 	#if Input.is_action_just_pressed("move_up"):
 		#velocity.y = JUMP_VELOCITY
@@ -48,11 +52,16 @@ func got_hit() -> void:
 	%SpotLight3D.show()
 	$GotHitTimer.start()
 	hearts -= 1
+	$HurtAudio.play()
+	player_hurt.emit(hearts)
 	if hearts > 0:
 		return
 	game_over.emit()
 	
-
+func reset() -> void:
+	hearts = 3
+	var reset_tween = create_tween()
+	reset_tween.tween_property(self, 'rotation:z', 0.0, 0.5)
 
 func check_perf(_delta: float) -> void:
 	var start = Time.get_ticks_usec()
