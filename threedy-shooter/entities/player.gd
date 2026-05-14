@@ -8,6 +8,7 @@ class_name Player
 @onready var hand: Marker3D = $BodyMesh/Hand
 @onready var weapon_controller: Node3D = $BodyMesh/Hand/WeaponController
 @onready var shoot_interval: Timer = $ShootIntervalTimer
+var shot_origin_transform: Transform3D
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 5.5
@@ -59,6 +60,7 @@ func equip_weapon() -> void:
 	weapon.rotate_z(deg_to_rad(180))
 	weapon.scale = Vector3(0.75, 0.75, 0.75)
 	weapon_controller.add_child(weapon)
+	shot_origin_transform = weapon.get_barrel_end_transform()
 
 
 func do_shoot() -> void:
@@ -70,6 +72,6 @@ func do_shoot() -> void:
 		return
 	shoot_interval.start()
 	var bullet = my_bullet.instantiate()
-	bullet.transform = hand.transform
+	bullet.transform = shot_origin_transform
 	bullet.speed = muzzle_speed
 	weapon_controller.add_child(bullet)

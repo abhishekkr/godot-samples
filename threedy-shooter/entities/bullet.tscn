@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dfgxvxyhs8ntp"]
 
 [ext_resource type="Script" uid="uid://bctipcew8i24v" path="res://entities/bullet.gd" id="1_j06he"]
+[ext_resource type="AudioStream" uid="uid://n6ihqhyoadla" path="res://assets/edited-obxjohn-pew-one.mp3" id="2_opdhh"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_hht6g"]
 radius = 0.1
@@ -9,14 +10,27 @@ radial_segments = 32
 rings = 16
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j06he"]
-albedo_color = Color(0.38006186, 0.19242856, 0.016341833, 1)
-metallic = 0.07
+albedo_color = Color(0.7534745, 0.40561274, 0.0728722, 1)
+rim_enabled = true
 subsurf_scatter_enabled = true
-subsurf_scatter_strength = 0.25
+subsurf_scatter_strength = 0.55
 
-[node name="Bullet" type="Node3D" unique_id=610854591]
+[sub_resource type="SphereShape3D" id="SphereShape3D_j06he"]
+radius = 0.1
+
+[node name="Bullet" type="Node3D" unique_id=664807560]
 script = ExtResource("1_j06he")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=614378231]
 mesh = SubResource("SphereMesh_hht6g")
 surface_material_override/0 = SubResource("StandardMaterial3D_j06he")
+
+[node name="Hitbox" type="Area3D" parent="." unique_id=73160816]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=1217280672]
+shape = SubResource("SphereShape3D_j06he")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1961952587]
+stream = ExtResource("2_opdhh")
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

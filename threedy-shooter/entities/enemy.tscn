@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://dvw6icq0nvubx"]
+
+[ext_resource type="Script" uid="uid://hynpf1mqd4cq" path="res://entities/enemy.gd" id="1_p7g5j"]
+[ext_resource type="AudioStream" uid="uid://dwkxnq6vxwgpk" path="res://assets/chiptone-loss-01.wav" id="2_pqhw6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c8u6y"]
+albedo_color = Color(0.12156863, 0.8352941, 0.9098039, 1)
+metallic = 0.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_p7g5j"]
+material = SubResource("StandardMaterial3D_c8u6y")
+bottom_radius = 0.3
+radial_segments = 8
+rings = 2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_c8u6y"]
+top_radius = 0.4
+bottom_radius = 0.4
+height = 0.25
+radial_segments = 8
+rings = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p7g5j"]
+albedo_color = Color(0.67058825, 0.9647059, 0, 1)
+emission_energy_multiplier = 2.93
+rim_enabled = true
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_c8u6y"]
+
+[node name="Enemy" type="CharacterBody3D" unique_id=1069822551]
+script = ExtResource("1_p7g5j")
+
+[node name="BodyMesh" type="MeshInstance3D" parent="." unique_id=1512879189]
+mesh = SubResource("CylinderMesh_p7g5j")
+
+[node name="GogglesMesh" type="MeshInstance3D" parent="BodyMesh" unique_id=1409721988]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4821313, 0.14798415)
+mesh = SubResource("CylinderMesh_c8u6y")
+surface_material_override/0 = SubResource("StandardMaterial3D_p7g5j")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=24758376]
+shape = SubResource("CylinderShape3D_c8u6y")
+
+[node name="JumpTimer" type="Timer" parent="." unique_id=1738154240]
+wait_time = 3.802
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=776104724]
+stream = ExtResource("2_pqhw6")
+volume_db = 1.825
+pitch_scale = 2.25
+
+[connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]

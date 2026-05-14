@@ -4,6 +4,16 @@
 [ext_resource type="Script" uid="uid://c1c4fbuq1ndjr" path="res://scenes/level.gd" id="1_w7c3h"]
 [ext_resource type="PackedScene" uid="uid://08hnc0y8a8p3" path="res://entities/weapon.tscn" id="3_w8frs"]
 [ext_resource type="PackedScene" uid="uid://dfgxvxyhs8ntp" path="res://entities/bullet.tscn" id="4_mx8sn"]
+[ext_resource type="PackedScene" uid="uid://dvw6icq0nvubx" path="res://entities/enemy.tscn" id="5_ppgk2"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_mx8sn"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ppgk2"]
+noise = SubResource("FastNoiseLite_mx8sn")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2r41h"]
+albedo_color = Color(0.73043597, 0.73837477, 0.7014725, 1)
+roughness_texture = SubResource("NoiseTexture2D_ppgk2")
 
 [node name="Level" type="Node3D" unique_id=901256596]
 script = ExtResource("1_w7c3h")
@@ -11,6 +21,7 @@ script = ExtResource("1_w7c3h")
 [node name="Ground" type="CSGBox3D" parent="." unique_id=499433448]
 use_collision = true
 size = Vector3(25, 1, 25)
+material = SubResource("StandardMaterial3D_2r41h")
 
 [node name="Player" parent="." unique_id=1724721702 instance=ExtResource("1_2q6dc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
@@ -24,4 +35,8 @@ shadow_opacity = 0.89
 shadow_blur = 0.0
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=954927640]
-transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 7, 8)
+transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 18.064154, 21.188038)
+keep_aspect = 0
+
+[node name="Enemy" parent="." unique_id=1069822551 instance=ExtResource("5_ppgk2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 2, 4)
