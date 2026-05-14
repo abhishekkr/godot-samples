@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://jbmrdk1jdstc"]
+
+[ext_resource type="Script" uid="uid://blwytkdlll5xu" path="res://entities/player.gd" id="1_merdl"]
+[ext_resource type="PackedScene" uid="uid://08hnc0y8a8p3" path="res://entities/weapon.tscn" id="2_b0kkn"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_rd3vj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2q6dc"]
+albedo_color = Color(1, 0.19607843, 0.2509804, 1)
+metallic = 0.1
+roughness = 0.75
+emission_energy_multiplier = 3.29
+rim_enabled = true
+
+[sub_resource type="PrismMesh" id="PrismMesh_merdl"]
+size = Vector3(0.5, 0.2, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_merdl"]
+albedo_color = Color(0.046008833, 0.2838417, 0.9999934, 0.7058824)
+metallic = 1.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rd3vj"]
+
+[node name="Player" type="CharacterBody3D" unique_id=1724721702]
+script = ExtResource("1_merdl")
+metadata/_edit_group_ = true
+
+[node name="BodyMesh" type="MeshInstance3D" parent="." unique_id=2042854924]
+mesh = SubResource("CapsuleMesh_rd3vj")
+surface_material_override/0 = SubResource("StandardMaterial3D_2q6dc")
+
+[node name="GoggleMesh" type="MeshInstance3D" parent="BodyMesh" unique_id=987595688]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0050569475, 0.44599783, 0.5291085)
+mesh = SubResource("PrismMesh_merdl")
+surface_material_override/0 = SubResource("StandardMaterial3D_merdl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1312617062]
+shape = SubResource("CapsuleShape3D_rd3vj")
+
+[node name="WeaponController" type="Node" parent="." unique_id=1708784338]
+
+[node name="Weapon" parent="WeaponController" unique_id=542816568 instance=ExtResource("2_b0kkn")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.31333885, 0.045043766, 0.9679365)

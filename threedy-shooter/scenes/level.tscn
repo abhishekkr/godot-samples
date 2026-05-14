@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://clli1oolmgwfu"]
+
+[ext_resource type="PackedScene" uid="uid://jbmrdk1jdstc" path="res://entities/player.tscn" id="1_2q6dc"]
+[ext_resource type="Script" uid="uid://c1c4fbuq1ndjr" path="res://scenes/level.gd" id="1_w7c3h"]
+
+[node name="Level" type="Node3D" unique_id=901256596]
+script = ExtResource("1_w7c3h")
+
+[node name="Ground" type="CSGBox3D" parent="." unique_id=499433448]
+use_collision = true
+size = Vector3(25, 1, 25)
+
+[node name="Player" parent="." unique_id=1724721702 instance=ExtResource("1_2q6dc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=227454798]
+transform = Transform3D(1, 0, 0, 0, 0.938782, 0.34451184, 0, -0.34451184, 0.938782, 0, 3.2371655, 5.8790126)
+shadow_enabled = true
+shadow_opacity = 0.89
+shadow_blur = 0.0
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=954927640]
+transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 7, 8)

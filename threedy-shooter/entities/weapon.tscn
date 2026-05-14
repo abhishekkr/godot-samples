@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://08hnc0y8a8p3"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_tnyxy"]
+size = Vector3(0.25, 0.25, 1.25)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gkour"]
+albedo_color = Color(0.14406255, 0.14406255, 0.14406255, 1)
+metallic = 0.35
+
+[sub_resource type="BoxMesh" id="BoxMesh_bil4u"]
+size = Vector3(0.2, 0.2, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q4b7v"]
+albedo_color = Color(0.24477622, 0.24477646, 0.24477634, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cd25n"]
+size = Vector3(0.15, 0.15, 0.35)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yc62m"]
+albedo_color = Color(0.30323282, 0.30323282, 0.30323282, 1)
+
+[node name="Weapon" type="Node3D" unique_id=542816568]
+
+[node name="BarrelMesh" type="MeshInstance3D" parent="." unique_id=358575556]
+mesh = SubResource("BoxMesh_tnyxy")
+surface_material_override/0 = SubResource("StandardMaterial3D_gkour")
+
+[node name="HandleMesh" type="MeshInstance3D" parent="." unique_id=1274449228]
+transform = Transform3D(1, 0, 0, 0, 0.7071067, 0.7071067, 0, -0.7071067, 0.7071067, 0, -0.13038923, -0.72956985)
+mesh = SubResource("BoxMesh_bil4u")
+surface_material_override/0 = SubResource("StandardMaterial3D_q4b7v")
+
+[node name="TriggerMesh" type="MeshInstance3D" parent="." unique_id=1235568164]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, -0.5, 0, 0.5, 0.8660254, 0, -0.19247773, -0.455497)
+mesh = SubResource("BoxMesh_cd25n")
+surface_material_override/0 = SubResource("StandardMaterial3D_yc62m")
