@@ -13,7 +13,7 @@
 
 * [GDQuest's Vampire Survior Style](./gdquest-vampire2d): 2D game for quick shooter style from [GDQuest's Tutorial](https://www.youtube.com/watch?v=GwCiGixlqiU)
 
-* _WIP_ [3D Top-Down Shooter](https://www.youtube.com/playlist?list=PLaGRTLvEbVzyUMwjUPgrreyRE3AY8jhOK) by _Age of Asparagus_
+* _WIP_ [3D Top-Down Shooter](./threedy-shooter) by [_Age of Asparagus_](https://www.youtube.com/playlist?list=PLaGRTLvEbVzyUMwjUPgrreyRE3AY8jhOK)
 
 ![godot-samples logo](godot-samples.png "Sample Godot Projects")
 

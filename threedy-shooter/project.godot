@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="threedy-shooter"
-config/description="Following tutorial Make a 3D Top Down Shooter with Godot - Part 1.1 Character Controller
-https://www.youtube.com/watch?v=HX6qpYjwN3M&list=PLaGRTLvEbVzyUMwjUPgrreyRE3AY8jhOK&index=2"
+config/description="Following tutorial Make a 3D Top Down Shooter with Godot
+https://www.youtube.com/watch?v=mDYaJa6txwc&list=PLaGRTLvEbVzyUMwjUPgrreyRE3AY8jhOK&index=3"
 run/main_scene="uid://clli1oolmgwfu"
 config/features=PackedStringArray("4.6", "Forward Plus")
 boot_splash/bg_color=Color(0.7058824, 0.23921569, 0.78039217, 1)

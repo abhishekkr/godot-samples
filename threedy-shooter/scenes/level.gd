@@ -10,6 +10,10 @@ var ray_target: Vector3
 
 
 func _process(_delta: float) -> void:
+	look_at_mouse()
+
+
+func look_at_mouse() -> void:
 	var mouse_pos := get_viewport().get_mouse_position()
 	ray_origin = camera.project_ray_origin(mouse_pos)
 	ray_target = ray_origin + camera.project_ray_normal(mouse_pos) * ray_length
@@ -19,4 +23,5 @@ func _process(_delta: float) -> void:
 	if not intersection.is_empty():
 		var intersect_at_pos = intersection.get('position')
 		intersect_at_pos.y = player.global_position.y
-		player.look_at(intersect_at_pos, intersect_at_pos, true)
+		var up_axis := Vector3(0, player.global_position.y, 0)
+		player.look_at(intersect_at_pos, up_axis, true)

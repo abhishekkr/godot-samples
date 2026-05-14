@@ -2,6 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://jbmrdk1jdstc" path="res://entities/player.tscn" id="1_2q6dc"]
 [ext_resource type="Script" uid="uid://c1c4fbuq1ndjr" path="res://scenes/level.gd" id="1_w7c3h"]
+[ext_resource type="PackedScene" uid="uid://08hnc0y8a8p3" path="res://entities/weapon.tscn" id="3_w8frs"]
+[ext_resource type="PackedScene" uid="uid://dfgxvxyhs8ntp" path="res://entities/bullet.tscn" id="4_mx8sn"]
 
 [node name="Level" type="Node3D" unique_id=901256596]
 script = ExtResource("1_w7c3h")
@@ -12,6 +14,8 @@ size = Vector3(25, 1, 25)
 
 [node name="Player" parent="." unique_id=1724721702 instance=ExtResource("1_2q6dc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+my_weapon = ExtResource("3_w8frs")
+my_bullet = ExtResource("4_mx8sn")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=227454798]
 transform = Transform3D(1, 0, 0, 0, 0.938782, 0.34451184, 0, -0.34451184, 0.938782, 0, 3.2371655, 5.8790126)

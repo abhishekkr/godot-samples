@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://jbmrdk1jdstc"]
 
 [ext_resource type="Script" uid="uid://blwytkdlll5xu" path="res://entities/player.gd" id="1_merdl"]
-[ext_resource type="PackedScene" uid="uid://08hnc0y8a8p3" path="res://entities/weapon.tscn" id="2_b0kkn"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_rd3vj"]
 
@@ -34,10 +33,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0050569475, 0.44599783, 0.5
 mesh = SubResource("PrismMesh_merdl")
 surface_material_override/0 = SubResource("StandardMaterial3D_merdl")
 
+[node name="Hand" type="Marker3D" parent="BodyMesh" unique_id=972559976]
+transform = Transform3D(0.10688886, -0.99427104, 0, 0.99427104, 0.10688886, 0, 0, 0, 1, -0.18791223, 0.4858557, 0.36311328)
+metadata/_edit_group_ = true
+
+[node name="WeaponController" type="Node3D" parent="BodyMesh/Hand" unique_id=1665156209]
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1312617062]
 shape = SubResource("CapsuleShape3D_rd3vj")
 
-[node name="WeaponController" type="Node" parent="." unique_id=1708784338]
+[node name="ShootIntervalTimer" type="Timer" parent="." unique_id=1449507880]
 
-[node name="Weapon" parent="WeaponController" unique_id=542816568 instance=ExtResource("2_b0kkn")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.31333885, 0.045043766, 0.9679365)
+[connection signal="timeout" from="ShootIntervalTimer" to="." method="_on_shoot_interval_timer_timeout"]
