@@ -49,4 +49,6 @@ stream = ExtResource("2_pqhw6")
 volume_db = 1.825
 pitch_scale = 2.25
 
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1734213507]
+
 [connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]

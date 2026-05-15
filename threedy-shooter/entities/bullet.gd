@@ -1,4 +1,5 @@
 extends Node3D
+class_name Bullet
 
 @onready var sound_player: AudioStreamPlayer = $AudioStreamPlayer
 
@@ -20,4 +21,4 @@ func _process(delta: float) -> void:
 func _on_hitbox_body_entered(body: Node3D) -> void:
 	if body is Enemy:
 		body.got_hit()
-		queue_free()
+	queue_free()
