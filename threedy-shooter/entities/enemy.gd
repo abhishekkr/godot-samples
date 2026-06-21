@@ -22,8 +22,7 @@ func _ready() -> void:
 		jump_timer.start()
 		jump_timer.wait_time = randf_range(1.5, 3.5)
 	if attack_target != null and nav_agent != null:
-		has_target = true
-		nav_agent.set_target_position(attack_target.global_transform.origin)
+		set_target()
 
 
 func _process(delta: float) -> void:
@@ -39,8 +38,12 @@ func _on_jump_timer_timeout() -> void:
 		velocity.y = JUMP_VELOCITY
 	jump_timer.wait_time = randf_range(3.5, 9.5)
 	if attack_target != null:
-		has_target = true
-		nav_agent.set_target_position(attack_target.global_position)
+		set_target()
+
+
+func set_target() -> void:
+	has_target = true
+	nav_agent.set_target_position(attack_target.global_position)
 
 
 func move_to_target(delta: float) -> void:
@@ -66,6 +69,7 @@ func got_hit() -> void:
 	hearts -= 1
 	sound_player.play()
 	turn_red()
+	set_target()
 	if hearts < 0:
 		death.emit()
 		await health_tween.finished

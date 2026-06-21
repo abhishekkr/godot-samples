@@ -24,7 +24,7 @@ albedo_color = Color(0.30323282, 0.30323282, 0.30323282, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_tnyxy"]
 size = Vector3(0.24, 0.2, 1.1655273)
 
-[node name="Weapon" type="Node3D" unique_id=623003114]
+[node name="Weapon" type="Node3D" unique_id=944339210]
 script = ExtResource("1_gkour")
 
 [node name="BarrelMesh" type="MeshInstance3D" parent="." unique_id=358575556]
@@ -42,6 +42,8 @@ mesh = SubResource("BoxMesh_cd25n")
 surface_material_override/0 = SubResource("StandardMaterial3D_yc62m")
 
 [node name="Hitbox" type="Area3D" parent="." unique_id=1129224704]
+collision_layer = 8
+collision_mask = 7
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=580296370]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.012573242, 0.01874587, -0.04309082)

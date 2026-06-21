@@ -23,6 +23,11 @@ config/icon="uid://12u3w4d7bivb"
 
 WaveManager="*uid://deq8o1rpf6vp2"
 
+[display]
+
+window/size/viewport_width=1200
+window/size/viewport_height=800
+
 [input]
 
 move_left={
@@ -71,6 +76,7 @@ do_interact={
 3d_physics/layer_1="WORLD"
 3d_physics/layer_2="PLAYER"
 3d_physics/layer_3="ENEMY"
+3d_physics/layer_4="WEAPON"
 
 [physics]
 

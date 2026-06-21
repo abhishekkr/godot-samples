@@ -6,19 +6,32 @@ class_name Bullet
 @export var speed: float = 15.0
 @export var disappear_time: float = 0.75
 
+var active := false
 
 
 func _ready() -> void:
-	get_tree().create_tween().tween_callback(queue_free).set_delay(disappear_time)
 	sound_player.play()
 
 
 func _process(delta: float) -> void:
-	var forward_direction = global_transform.basis.z.normalized()
-	global_translate(forward_direction * speed * delta)
+	if active:
+		var forward_direction = global_transform.basis.z.normalized()
+		global_translate(forward_direction * speed * delta)
 
 
 func _on_hitbox_body_entered(body: Node3D) -> void:
 	if body is Enemy:
 		body.got_hit()
-	queue_free()
+	deactivate()
+
+
+func activate(spawn_transform: Transform3D):
+	global_transform = spawn_transform
+	active = true
+	get_tree().create_tween().tween_callback(deactivate).set_delay(disappear_time)
+	show()
+
+
+func deactivate():
+	active = false
+	hide()

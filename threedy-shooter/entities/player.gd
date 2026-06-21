@@ -6,6 +6,9 @@ class_name Player
 @export var my_bullet: PackedScene
 @export var muzzle_speed: float = 15.0
 @export var millisecond_fire_interval: float = 500.0
+@export var bullet_pool_size := 10
+var bullet_pool: Array[Bullet] = []
+var bullet_pool_index := 0
 
 @onready var hand: Marker3D = $BodyMesh/Hand
 @onready var weapon_controller: Node3D = $BodyMesh/Hand/WeaponController
@@ -56,11 +59,19 @@ func equip_weapon() -> void:
 		print("Redundant call made to equip weapon.")
 		return
 	var weapon = my_weapon.instantiate()
-	weapon.transform = hand.transform
-	weapon.rotate_z(deg_to_rad(180))
+	#weapon.transform = hand.transform
+	#weapon.position = hand.global_transform.origin
+	weapon.rotate_z(deg_to_rad(-90))
 	weapon.scale = Vector3(0.75, 0.75, 0.75)
 	weapon_controller.add_child(weapon)
 	shot_origin_transform = weapon.get_barrel_end_transform()
+	## create bullet pool
+	bullet_pool.resize(bullet_pool_size)
+	for i in bullet_pool_size:
+		var b = my_bullet.instantiate()
+		weapon_controller.add_child(b)
+		b.deactivate()
+		bullet_pool[i] = b
 
 
 func do_shoot() -> void:
@@ -70,7 +81,12 @@ func do_shoot() -> void:
 		print("Got no bullets.")
 		return
 	shoot_interval.start()
-	var bullet = my_bullet.instantiate()
+	print("~~~1 do_shoot: ", Time.get_ticks_msec())
+	var bullet = bullet_pool[bullet_pool_index]
+	bullet_pool_index = (bullet_pool_index + 1) % bullet_pool_size
+	bullet.activate(weapon_controller.global_transform)
+	#var bullet = my_bullet.instantiate()
+	print("~~2 do_shoot: ", Time.get_ticks_msec())
 	bullet.transform = shot_origin_transform
 	bullet.speed = muzzle_speed
 	weapon_controller.add_child(bullet)

@@ -22,6 +22,8 @@ rim_enabled = true
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rd3vj"]
 
 [node name="Player" type="CharacterBody3D" unique_id=1724721702]
+collision_layer = 2
+collision_mask = 13
 script = ExtResource("1_merdl")
 metadata/_edit_group_ = true
 
@@ -35,7 +37,7 @@ mesh = SubResource("PrismMesh_merdl")
 surface_material_override/0 = SubResource("StandardMaterial3D_merdl")
 
 [node name="Hand" type="Marker3D" parent="BodyMesh" unique_id=972559976]
-transform = Transform3D(0.10688886, -0.99427104, 0, 0.99427104, 0.10688886, 0, 0, 0, 1, -0.18791223, 0.4858557, 0.36311328)
+transform = Transform3D(0.10688886, -0.99427104, 0, 0.99427104, 0.10688886, 0, 0, 0, 1, -0.48162317, 0.17061794, 0.56421846)
 metadata/_edit_group_ = true
 
 [node name="WeaponController" type="Node3D" parent="BodyMesh/Hand" unique_id=1665156209]

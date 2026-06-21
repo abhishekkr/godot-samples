@@ -42,7 +42,7 @@ func start_next_wave() -> bool:
 		if marker_index == prev_marker_index:
 			marker_index = 0 if marker_index == spawn_markers.size() - 1 else marker_index + 1
 		var spawn_marker: Marker3D = spawn_markers[marker_index]
-		enemy.global_position = spawn_marker.global_position
+		#enemy.global_position = spawn_marker.global_position 	## since added as child to Marker
 		enemy.attack_target = player
 		enemy.death.connect(on_enemy_death)
 		current_enemy_count += 1
