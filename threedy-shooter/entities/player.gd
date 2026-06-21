@@ -69,7 +69,7 @@ func equip_weapon() -> void:
 	bullet_pool.resize(bullet_pool_size)
 	for i in bullet_pool_size:
 		var b = my_bullet.instantiate()
-		weapon_controller.add_child(b)
+		get_tree().current_scene.add_child.call_deferred(b)
 		b.deactivate()
 		bullet_pool[i] = b
 
@@ -84,9 +84,9 @@ func do_shoot() -> void:
 	print("~~~1 do_shoot: ", Time.get_ticks_msec())
 	var bullet = bullet_pool[bullet_pool_index]
 	bullet_pool_index = (bullet_pool_index + 1) % bullet_pool_size
-	bullet.activate(weapon_controller.global_transform)
+	bullet.activate(weapon_controller.global_transform, muzzle_speed)
 	#var bullet = my_bullet.instantiate()
 	print("~~2 do_shoot: ", Time.get_ticks_msec())
-	bullet.transform = shot_origin_transform
-	bullet.speed = muzzle_speed
-	weapon_controller.add_child(bullet)
+	#bullet.transform = shot_origin_transform
+	#bullet.speed = muzzle_speed
+	#weapon_controller.add_child(bullet)

@@ -3,9 +3,17 @@
 
 [3D Top-Down Shooter](https://www.youtube.com/playlist?list=PLaGRTLvEbVzyUMwjUPgrreyRE3AY8jhOK) by _Age of Asparagus_
 
+**BUGS**
+* Check WAVE MANAGER
+
 ---
 
 ### CREDITS
+
+
+**FONTS**
+
+** [Scabber by GGBotNet](https://www.fontspace.com/scabber-font-f140130); CC0
 
 **Sounds**
 
