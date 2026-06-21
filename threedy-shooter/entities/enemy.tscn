@@ -30,6 +30,8 @@ rim_enabled = true
 [node name="Enemy" type="CharacterBody3D" unique_id=1069822551]
 script = ExtResource("1_p7g5j")
 
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1734213507]
+
 [node name="BodyMesh" type="MeshInstance3D" parent="." unique_id=1512879189]
 mesh = SubResource("CylinderMesh_p7g5j")
 
@@ -49,6 +51,5 @@ stream = ExtResource("2_pqhw6")
 volume_db = 1.825
 pitch_scale = 2.25
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1734213507]
-
+[connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]
 [connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]

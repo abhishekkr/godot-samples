@@ -1,10 +1,12 @@
 extends CharacterBody3D
 class_name Player
 
+@export var camera_pivot: Camera3D
 @export var my_weapon: PackedScene
 @export var my_bullet: PackedScene
 @export var muzzle_speed: float = 15.0
 @export var millisecond_fire_interval: float = 500.0
+
 @onready var hand: Marker3D = $BodyMesh/Hand
 @onready var weapon_controller: Node3D = $BodyMesh/Hand/WeaponController
 @onready var shoot_interval: Timer = $ShootIntervalTimer
@@ -41,11 +43,9 @@ func _input(event: InputEvent) -> void:
 		if event.is_action_pressed("do_shoot"):
 			do_shoot()
 	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-
-
-func _on_shoot_interval_timer_timeout() -> void:
-	print("ready_to_shoot")
+	var input_dir3D = Vector3(input_dir.x, 0, input_dir.y)
+	#direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	direction = input_dir3D.rotated(Vector3.UP, camera_pivot.global_rotation.y)
 
 
 func equip_weapon() -> void:
@@ -65,7 +65,6 @@ func equip_weapon() -> void:
 
 func do_shoot() -> void:
 	if not shoot_interval.is_stopped():
-		print("In between shots.")
 		return
 	if not my_bullet:
 		print("Got no bullets.")

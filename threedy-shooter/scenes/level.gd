@@ -10,6 +10,10 @@ var ray_origin: Vector3
 var ray_target: Vector3
 
 
+func _ready() -> void:
+	WaveManager.start_next_wave()
+
+
 func _process(_delta: float) -> void:
 	look_at_mouse()
 

@@ -44,5 +44,3 @@ metadata/_edit_group_ = true
 shape = SubResource("CapsuleShape3D_rd3vj")
 
 [node name="ShootIntervalTimer" type="Timer" parent="." unique_id=1449507880]
-
-[connection signal="timeout" from="ShootIntervalTimer" to="." method="_on_shoot_interval_timer_timeout"]
