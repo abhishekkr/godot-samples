@@ -5,6 +5,7 @@
 
 **BUGS**
 * Check WAVE MANAGER
+* Check Refill Health works again; Show Indicator on Scene
 
 ---
 

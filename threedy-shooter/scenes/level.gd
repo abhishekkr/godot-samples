@@ -3,6 +3,7 @@ class_name Level
 
 @onready var camera: Camera3D = $Camera3D
 @onready var player: Player = $Player
+@onready var title: Label3D = $Title
 
 const ray_length: float = 2000
 
@@ -30,3 +31,7 @@ func look_at_mouse() -> void:
 		intersect_at_pos.y = player.global_position.y
 		var up_axis := Vector3(0, player.global_position.y, 0)
 		player.look_at(intersect_at_pos, up_axis, true)
+
+
+func _on_player_game_over() -> void:
+	title.text = "GAME OVER!"

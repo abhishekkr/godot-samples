@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://jbmrdk1jdstc"]
 
 [ext_resource type="Script" uid="uid://blwytkdlll5xu" path="res://entities/player.gd" id="1_merdl"]
+[ext_resource type="AudioStream" uid="uid://dwkxnq6vxwgpk" path="res://assets/chiptone-loss-01.wav" id="2_b0kkn"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_rd3vj"]
 
@@ -46,3 +47,9 @@ metadata/_edit_group_ = true
 shape = SubResource("CapsuleShape3D_rd3vj")
 
 [node name="ShootIntervalTimer" type="Timer" parent="." unique_id=1449507880]
+
+[node name="GotHurtSound" type="AudioStreamPlayer" parent="." unique_id=1634430047]
+stream = ExtResource("2_b0kkn")
+volume_db = 3.5
+pitch_scale = 0.95
+mix_target = 2

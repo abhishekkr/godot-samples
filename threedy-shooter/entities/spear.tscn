@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://cnn4tmahbutpf"]
+
+[ext_resource type="Script" uid="uid://hk253moffse7" path="res://entities/spear.gd" id="1_lxi0x"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mtbel"]
+albedo_color = Color(0.55434775, 0.26020262, 0.06360555, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lxi0x"]
+albedo_color = Color(0.47788018, 0.47788012, 0.47788012, 1)
+emission_enabled = true
+emission = Color(0.88235295, 0.74509805, 0.02745098, 1)
+emission_energy_multiplier = 4.5
+emission_on_uv2 = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mtbel"]
+size = Vector3(0.15, 0.5, 0.25)
+
+[node name="Spear" type="Node3D" unique_id=2127519641]
+script = ExtResource("1_lxi0x")
+
+[node name="Shaft" type="CSGBox3D" parent="." unique_id=760887031]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+size = Vector3(0.1, 2.25, 0.1)
+material = SubResource("StandardMaterial3D_mtbel")
+
+[node name="SpearHead" type="CSGBox3D" parent="Shaft" unique_id=1908075586]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+size = Vector3(0.15, 0.5, 0.25)
+material = SubResource("StandardMaterial3D_lxi0x")
+
+[node name="Hitbox" type="Area3D" parent="Shaft/SpearHead" unique_id=2053484725]
+collision_layer = 8
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Shaft/SpearHead/Hitbox" unique_id=841168890]
+shape = SubResource("BoxShape3D_mtbel")
+
+[connection signal="body_entered" from="Shaft/SpearHead/Hitbox" to="." method="_on_hitbox_body_entered"]

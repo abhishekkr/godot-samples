@@ -27,6 +27,10 @@ rim_enabled = true
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_c8u6y"]
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_pqhw6"]
+height = 1.0
+radius = 1.25
+
 [node name="Enemy" type="CharacterBody3D" unique_id=1069822551]
 collision_layer = 4
 collision_mask = 15
@@ -42,16 +46,34 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4821313, 0.14798415)
 mesh = SubResource("CylinderMesh_c8u6y")
 surface_material_override/0 = SubResource("StandardMaterial3D_p7g5j")
 
+[node name="Hand" type="Marker3D" parent="BodyMesh" unique_id=1972686700]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.21877813, 0, 0.6825199)
+
+[node name="WeaponController" type="Node3D" parent="BodyMesh/Hand" unique_id=1672587526]
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=24758376]
 shape = SubResource("CylinderShape3D_c8u6y")
 
 [node name="JumpTimer" type="Timer" parent="." unique_id=1738154240]
 wait_time = 3.802
 
+[node name="SwingTimer" type="Timer" parent="." unique_id=1703284795]
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=776104724]
 stream = ExtResource("2_pqhw6")
 volume_db = 1.825
 pitch_scale = 2.25
 
+[node name="AttackRadius" type="Area3D" parent="." unique_id=194670269]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackRadius" unique_id=1655051310]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4894967, 1.035496)
+shape = SubResource("CylinderShape3D_pqhw6")
+
 [connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]
 [connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]
+[connection signal="timeout" from="SwingTimer" to="." method="_on_swing_timer_timeout"]
+[connection signal="body_entered" from="AttackRadius" to="." method="_on_attack_radius_body_entered"]
+[connection signal="body_exited" from="AttackRadius" to="." method="_on_attack_radius_body_exited"]

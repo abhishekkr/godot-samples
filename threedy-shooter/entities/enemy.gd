@@ -3,9 +3,16 @@ class_name Enemy
 
 signal death
 
+@export var my_weapon: PackedScene = preload("res://entities/spear.tscn")
+@export var weapon_swing_speed: float = 15.0
+
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var sound_player: AudioStreamPlayer = $AudioStreamPlayer
 @onready var jump_timer: Timer = $JumpTimer
+
+@onready var hand: Marker3D = $BodyMesh/Hand
+@onready var weapon_controller: Node3D = $BodyMesh/Hand/WeaponController
+@onready var swing_timer: Timer = $SwingTimer
 
 @export var attack_target: Player = null
 
@@ -15,6 +22,7 @@ const JUMP_VELOCITY = 2.5
 var hearts: int = 3
 var health_tween: Tween
 var has_target: bool = false
+var can_attack: bool = false
 
 
 func _ready() -> void:
@@ -23,12 +31,17 @@ func _ready() -> void:
 		jump_timer.wait_time = randf_range(1.5, 3.5)
 	if attack_target != null and nav_agent != null:
 		set_target()
+	if my_weapon:
+		equip_weapon()
 
 
 func _process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-	if has_target:
+	if can_attack:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.z = move_toward(velocity.z, 0, SPEED)
+	elif has_target:
 		move_to_target(delta)
 	move_and_slide()
 
@@ -39,6 +52,10 @@ func _on_jump_timer_timeout() -> void:
 	jump_timer.wait_time = randf_range(3.5, 9.5)
 	if attack_target != null:
 		set_target()
+
+
+func _on_navigation_agent_3d_navigation_finished() -> void:
+	print("ENEMY: Player In Sight")
 
 
 func set_target() -> void:
@@ -86,5 +103,35 @@ func turn_red() -> void:
 	health_tween.tween_property(body_material, "albedo_color", Color.SKY_BLUE, 0.05).set_delay(0.5)
 
 
-func _on_navigation_agent_3d_navigation_finished() -> void:
-	print("ENEMY: Player In Sight")
+func equip_weapon() -> void:
+	if not my_weapon:
+		print("No Weapon Given.")
+		return
+	if weapon_controller.get_child_count() > 0:
+		print("Redundant call made to equip weapon.")
+		return
+	var weapon = my_weapon.instantiate()
+	#weapon.rotate_z(deg_to_rad(-90))
+	#weapon.scale = Vector3(0.75, 0.75, 0.75)
+	weapon_controller.add_child(weapon)
+
+
+func _on_attack_radius_body_entered(body: Node3D) -> void:
+	if body is Player:
+		print("CAN ATTACK")
+		can_attack = true
+		swing_timer.start()
+
+
+func _on_attack_radius_body_exited(body: Node3D) -> void:
+	if body is Player:
+		can_attack = false
+		swing_timer.stop()
+
+
+func _on_swing_timer_timeout() -> void:
+	var weapon_tween = get_tree().create_tween()
+	weapon_tween.set_parallel(false)
+	weapon_tween.tween_property(weapon_controller, "rotation_degrees:x", 90.0, 0.5)
+	weapon_tween.tween_property(weapon_controller, "rotation_degrees:x", 0.0, 0.5)
+	

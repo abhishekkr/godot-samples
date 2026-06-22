@@ -79,3 +79,7 @@ func  on_enemy_death() -> void:
 	if current_enemy_count < 1:
 		print("WAVE ENDED, START NEW WAVE.")
 		start_next_wave()
+		var player = get_tree().root.get_node("Level").get_node("Player")
+		if player is Player:
+			print("PLAYER HEALTH RESET")
+			player.refill_health()

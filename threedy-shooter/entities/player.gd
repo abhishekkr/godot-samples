@@ -1,6 +1,8 @@
 extends CharacterBody3D
 class_name Player
 
+signal game_over
+
 @export var camera_pivot: Camera3D
 @export var my_weapon: PackedScene
 @export var my_bullet: PackedScene
@@ -15,9 +17,16 @@ var bullet_pool_index := 0
 @onready var shoot_interval: Timer = $ShootIntervalTimer
 var shot_origin_transform: Transform3D
 
-const SPEED = 5.0
+@onready var got_hurt_sfx: AudioStreamPlayer = $GotHurtSound
+
+const SPEED = 10.0
 const JUMP_VELOCITY = 5.5
+const MAX_HEARTS = 10
+
 var direction: Vector3
+
+var hearts: int = 5
+var health_tween: Tween
 
 
 func _ready() -> void:
@@ -90,3 +99,27 @@ func do_shoot() -> void:
 	#bullet.transform = shot_origin_transform
 	#bullet.speed = muzzle_speed
 	#weapon_controller.add_child(bullet)
+
+
+func got_hit() -> void:
+	hearts -= 1
+	got_hurt_sfx.play()
+	turn_red()
+	if hearts < 0:
+		await health_tween.finished
+		game_over.emit()
+		get_tree().paused = true
+
+
+func turn_red() -> void:
+	if health_tween and health_tween.is_running():
+		return
+	var body_material: Material = $BodyMesh.get_active_material(0)
+	health_tween = create_tween()
+	health_tween.set_parallel(true)
+	health_tween.tween_property(body_material, "albedo_color", Color.HOT_PINK, 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	health_tween.tween_property(body_material, "albedo_color", Color.RED, 0.05).set_delay(0.5)
+
+
+func refill_health() -> void:
+	hearts = MAX_HEARTS

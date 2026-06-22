@@ -160,3 +160,5 @@ text = "SHOOT'EM ALL"
 font = ExtResource("6_klq6b")
 font_size = 396
 outline_size = 8
+
+[connection signal="game_over" from="Player" to="." method="_on_player_game_over"]
