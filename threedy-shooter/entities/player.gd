@@ -37,6 +37,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if WaveManager.is_game_over:
+		return
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	if direction:
@@ -49,6 +51,8 @@ func _process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if WaveManager.is_game_over:
+		return
 	if not event.is_echo():
 		if event.is_action_pressed("do_jump") and is_on_floor():
 			velocity.y = JUMP_VELOCITY
@@ -108,7 +112,8 @@ func got_hit() -> void:
 	if hearts < 0:
 		await health_tween.finished
 		game_over.emit()
-		get_tree().paused = true
+		#get_tree().paused = true
+		WaveManager.on_game_over()
 
 
 func turn_red() -> void:
@@ -117,7 +122,7 @@ func turn_red() -> void:
 	var body_material: Material = $BodyMesh.get_active_material(0)
 	health_tween = create_tween()
 	health_tween.set_parallel(true)
-	health_tween.tween_property(body_material, "albedo_color", Color.HOT_PINK, 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	health_tween.tween_property(body_material, "albedo_color", Color.PEACH_PUFF, 0.5).set_trans(Tween.TRANS_SINE)
 	health_tween.tween_property(body_material, "albedo_color", Color.RED, 0.05).set_delay(0.5)
 
 

@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dfgxvxyhs8ntp" path="res://entities/bullet.tscn" id="4_mx8sn"]
 [ext_resource type="Texture2D" uid="uid://cruq3kwe3x8my" path="res://assets/ground-grid.png" id="6_2r41h"]
 [ext_resource type="FontFile" uid="uid://bjbn5g40xrij3" path="res://assets/Scabber.ttf" id="6_klq6b"]
+[ext_resource type="Texture2D" uid="uid://c2sjfbu2jjwac" path="res://assets/threedy-player-icon.png" id="7_klq6b"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ppgk2"]
 vertices = PackedVector3Array(-11.5, 1.5, -4.25, -9, 1.5, -4.25, -8.25, 1.5, -5.25, -7, 1.5, -6.75, -7, 1.5, -11.5, -11.5, 1.5, -11.5, 4.5, 1.5, -5.25, 4.5, 1.5, -6, -6.25, 1.5, -6, 5.5, 1.5, -6, 11.5, 1.5, -5.25, 5.5, 1.5, -9.25, 6.25, 1.5, -8.5, 11.5, 1.5, -11.5, 6.25, 1.5, -6.75, -3.75, 1.5, -11.5, -3.75, 1.5, -9.25, -3.5, 1.5, -1.25, -3, 1.5, -0.5, -2.25, 1.5, -1.25, -9, 1.5, -2.75, -11.5, 1.5, -1.25, 6.5, 1.5, -1.25, 7.25, 1.5, -0.5, 11.5, 1.5, -2, -8.25, 1.5, -2, 6.5, 1.5, 2, 1.75, 1.5, 2, 1.75, 1.5, 2.75, 11.5, 1.5, 2.75, 7.25, 1.5, 1.25, 0.75, 1.5, 2.75, -2.25, 1.5, 2, -3, 1.5, 1.25, -3.75, 1.5, 2, -3.75, 1.5, 5.25, -5, 1.5, 6, -4.75, 1.5, 7, 4, 1.5, 7, 0.75, 1.5, 6, 0, 1.5, 5.25, 0, 1.5, 3.5, 4.25, 1.5, 6, -6.25, 1.5, 6, -6, 1.5, 7.75, -7, 1.5, 5.25, -7, 1.5, 2, -11.5, 1.5, 2, -11.5, 1.5, 11.5, -6, 1.5, 9.5, -5.25, 1.5, 10.25, -1, 1.5, 11.5, -1, 1.5, 10.25, 5.5, 1.5, 7, 11.5, 1.5, 6, 5.5, 1.5, 10.25, 2.25, 1.5, 10.25, 2.25, 1.5, 11.5, 11.5, 1.5, 11.5, 6.25, 1.5, 9.5, 6.25, 1.5, 7.75)
@@ -44,6 +45,14 @@ glow_bloom = 0.18
 fog_light_energy = 0.75
 fog_sky_affect = 0.5
 
+[sub_resource type="InputEventKey" id="InputEventKey_b121j"]
+device = -1
+keycode = 32
+unicode = 32
+
+[sub_resource type="Shortcut" id="Shortcut_8c41q"]
+events = [SubResource("InputEventKey_b121j")]
+
 [node name="Level" type="Node3D" unique_id=901256596]
 script = ExtResource("1_w7c3h")
 
@@ -62,8 +71,6 @@ shadow_blur = 0.0
 [node name="Camera3D" type="Camera3D" parent="." unique_id=954927640]
 transform = Transform3D(1, 0, 0, 0, 0.6496339, 0.7602473, 0, -0.7602473, 0.6496339, 0.11512947, 18.168655, 17.385265)
 keep_aspect = 0
-
-[node name="Enemies" type="Node3D" parent="." unique_id=739399630]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1751263157]
 navigation_mesh = SubResource("NavigationMesh_ppgk2")
@@ -153,7 +160,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2.5, -10)
 [node name="SpawnPointC" type="Marker3D" parent="WaveSpawn" unique_id=915315466 groups=["SPAWN_POINTS"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.5, 3)
 
-[node name="Title" type="Label3D" parent="." unique_id=661104518]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=530982082]
+
+[node name="Title" type="Label3D" parent="CanvasLayer" unique_id=661104518]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.640021, 0)
 outline_modulate = Color(0, 0.8901961, 0, 1)
 text = "SHOOT'EM ALL"
@@ -161,4 +170,40 @@ font = ExtResource("6_klq6b")
 font_size = 396
 outline_size = 8
 
+[node name="GameOverNode" type="Control" parent="CanvasLayer" unique_id=1832279179]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BtnRestart" type="Button" parent="CanvasLayer/GameOverNode" unique_id=1474013047]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.9380335, 0.4670781, 0.61509866, 1)
+theme_override_colors/font_focus_color = Color(0.98039216, 0.64705884, 0.9607843, 1)
+theme_override_colors/font_pressed_color = Color(0.67058825, 0.45490196, 0.45490196, 1)
+theme_override_colors/font_hover_color = Color(0.9490196, 0.65882355, 0.9490196, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("6_klq6b")
+theme_override_font_sizes/font_size = 128
+shortcut = SubResource("Shortcut_8c41q")
+text = "RE:START"
+icon = ExtResource("7_klq6b")
+flat = true
+icon_alignment = 2
+
 [connection signal="game_over" from="Player" to="." method="_on_player_game_over"]
+[connection signal="pressed" from="CanvasLayer/GameOverNode/BtnRestart" to="." method="_on_btn_restart_pressed"]

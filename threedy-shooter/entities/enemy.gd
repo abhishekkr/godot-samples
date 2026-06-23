@@ -36,6 +36,9 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if WaveManager.is_game_over:
+		swing_timer.stop()
+		return
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	if can_attack:

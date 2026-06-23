@@ -12,6 +12,7 @@ var waves = [
 var current_wave_id: int
 var current_enemy_count: int
 var can_spawn: bool = true
+var is_game_over: bool = false
 
 const enemy_scene: String = "res://entities/enemy.tscn"
 const enemy_creation_gap: float = 0.25
@@ -74,12 +75,25 @@ func set_can_spawn() -> void:
 		print("This level has spawn point count of ", spawn_markers.size())
 
 
-func  on_enemy_death() -> void:
+func on_enemy_death() -> void:
 	current_enemy_count -= 1
 	if current_enemy_count < 1:
 		print("WAVE ENDED, START NEW WAVE.")
 		start_next_wave()
-		var player = get_tree().root.get_node("Level").get_node("Player")
 		if player is Player:
 			print("PLAYER HEALTH RESET")
 			player.refill_health()
+
+
+func on_game_over() -> void:
+	if WaveManager.is_game_over == true:
+		return
+	print("CALLED GAME_OVER")
+	WaveManager.is_game_over = true
+	current_wave_id = -1
+	current_enemy_count = 0
+	var end_timer := get_tree().create_timer(0.5)
+	await end_timer.timeout
+	for enemy_parents in spawn_markers:
+		for item in enemy_parents.get_children():
+			item.queue_free()

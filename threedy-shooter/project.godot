@@ -12,12 +12,13 @@ config_version=5
 
 config/name="threedy-shooter"
 config/description="Following tutorial Make a 3D Top Down Shooter with Godot
-https://www.youtube.com/watch?v=jcO9E7ZS4Eg&list=PLaGRTLvEbVzyUMwjUPgrreyRE3AY8jhOK&index=7"
+https://www.youtube.com/watch?v=a2J_9fco7xE&list=PLaGRTLvEbVzyUMwjUPgrreyRE3AY8jhOK&index=8"
+config/tags=PackedStringArray("3d", "tutorial")
 run/main_scene="uid://clli1oolmgwfu"
 config/features=PackedStringArray("4.6", "Forward Plus")
 boot_splash/bg_color=Color(0.7058824, 0.23921569, 0.78039217, 1)
 boot_splash/image="uid://c7crdsv3u1ckd"
-config/icon="uid://12u3w4d7bivb"
+config/icon="uid://c2sjfbu2jjwac"
 
 [autoload]
 

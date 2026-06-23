@@ -5,7 +5,10 @@
 
 **BUGS**
 * Check WAVE MANAGER
+
+**TODO**
 * Check Refill Health works again; Show Indicator on Scene
+* When User falls down, GAME OVER!
 
 ---
 

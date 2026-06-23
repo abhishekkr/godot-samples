@@ -3,7 +3,8 @@ class_name Level
 
 @onready var camera: Camera3D = $Camera3D
 @onready var player: Player = $Player
-@onready var title: Label3D = $Title
+@onready var title: Label3D = $CanvasLayer/Title
+@onready var game_over_node: Control = $CanvasLayer/GameOverNode
 
 const ray_length: float = 2000
 
@@ -12,6 +13,7 @@ var ray_target: Vector3
 
 
 func _ready() -> void:
+	game_over_node.hide()
 	WaveManager.start_next_wave()
 
 
@@ -35,3 +37,10 @@ func look_at_mouse() -> void:
 
 func _on_player_game_over() -> void:
 	title.text = "GAME OVER!"
+	game_over_node.show()
+
+
+func _on_btn_restart_pressed() -> void:
+	game_over_node.hide()
+	WaveManager.is_game_over = false
+	WaveManager.start_next_wave()

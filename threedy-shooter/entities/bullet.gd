@@ -7,11 +7,11 @@ class_name Bullet
 @export var speed: float = 15.0
 @export var disappear_time: float = 0.75
 
-var active := false
+var active: bool
 
 
 func _ready() -> void:
-	sound_player.play()
+	active = false
 
 
 func _process(delta: float) -> void:
@@ -35,6 +35,7 @@ func activate(spawn_transform: Transform3D, nu_speed: float):
 	active = true
 	get_tree().create_tween().tween_callback(deactivate).set_delay(disappear_time)
 	show()
+	sound_player.play()
 
 
 func deactivate():
