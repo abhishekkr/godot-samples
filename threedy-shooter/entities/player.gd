@@ -39,6 +39,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if WaveManager.is_game_over:
 		return
+	if global_position.y < -5:
+		emit_game_over()
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	if direction:
@@ -111,9 +113,7 @@ func got_hit() -> void:
 	turn_red()
 	if hearts < 0:
 		await health_tween.finished
-		game_over.emit()
-		#get_tree().paused = true
-		WaveManager.on_game_over()
+		emit_game_over()
 
 
 func turn_red() -> void:
@@ -128,3 +128,17 @@ func turn_red() -> void:
 
 func refill_health() -> void:
 	hearts = MAX_HEARTS
+
+
+func look_at_with_weapon(intersect_at_pos: Vector3) -> void:
+	var up_axis := Vector3(0, global_position.y, 0)
+	intersect_at_pos.y = global_position.y
+	look_at(intersect_at_pos, up_axis, true)
+	# for hand, so weapon points on right angle
+	intersect_at_pos.y = hand.global_position.y
+	hand.look_at(intersect_at_pos, up_axis, true)
+
+
+func emit_game_over() -> void:
+	game_over.emit()
+	WaveManager.on_game_over()

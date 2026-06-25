@@ -133,8 +133,18 @@ func _on_attack_radius_body_exited(body: Node3D) -> void:
 
 
 func _on_swing_timer_timeout() -> void:
+	look_at_with_weapon()
 	var weapon_tween = get_tree().create_tween()
 	weapon_tween.set_parallel(false)
 	weapon_tween.tween_property(weapon_controller, "rotation_degrees:x", 90.0, 0.5)
 	weapon_tween.tween_property(weapon_controller, "rotation_degrees:x", 0.0, 0.5)
-	
+
+
+func look_at_with_weapon() -> void:
+	var target_pos := attack_target.global_position
+	var up_axis := Vector3(0, global_position.y, 0)
+	target_pos.y = global_position.y
+	look_at(target_pos, up_axis, true)
+	# for hand, so weapon points on right angle
+	target_pos.y = hand.global_position.y
+	hand.look_at(target_pos, up_axis, true)

@@ -13,6 +13,7 @@ var ray_target: Vector3
 
 
 func _ready() -> void:
+	WaveManager.set_restart_configs()
 	game_over_node.hide()
 	WaveManager.start_next_wave()
 
@@ -30,9 +31,10 @@ func look_at_mouse() -> void:
 	var intersection = space_state.intersect_ray(ray_query)
 	if not intersection.is_empty():
 		var intersect_at_pos = intersection.get('position')
-		intersect_at_pos.y = player.global_position.y
-		var up_axis := Vector3(0, player.global_position.y, 0)
-		player.look_at(intersect_at_pos, up_axis, true)
+		player.look_at_with_weapon(intersect_at_pos)
+		#intersect_at_pos.y = player.global_position.y
+		#var up_axis := Vector3(0, player.global_position.y, 0)
+		#player.look_at(intersect_at_pos, up_axis, true)
 
 
 func _on_player_game_over() -> void:
@@ -42,5 +44,5 @@ func _on_player_game_over() -> void:
 
 func _on_btn_restart_pressed() -> void:
 	game_over_node.hide()
-	WaveManager.is_game_over = false
+	WaveManager.on_game_restart()
 	WaveManager.start_next_wave()

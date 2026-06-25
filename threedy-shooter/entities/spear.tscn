@@ -13,7 +13,7 @@ emission_energy_multiplier = 4.5
 emission_on_uv2 = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mtbel"]
-size = Vector3(0.15, 0.5, 0.25)
+size = Vector3(0.15, 2.25, 0.25)
 
 [node name="Spear" type="Node3D" unique_id=2127519641]
 script = ExtResource("1_lxi0x")
@@ -33,6 +33,7 @@ collision_layer = 8
 collision_mask = 7
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Shaft/SpearHead/Hitbox" unique_id=841168890]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.85, 0)
 shape = SubResource("BoxShape3D_mtbel")
 
 [connection signal="body_entered" from="Shaft/SpearHead/Hitbox" to="." method="_on_hitbox_body_entered"]

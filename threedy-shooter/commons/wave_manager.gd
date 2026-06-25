@@ -17,6 +17,14 @@ var is_game_over: bool = false
 const enemy_scene: String = "res://entities/enemy.tscn"
 const enemy_creation_gap: float = 0.25
 
+var restart_configs: Dictionary = {
+	"player": {
+		"health": -1,
+		"global_transform": null
+	},
+	"wave_id": -1,
+}
+
 
 func _ready() -> void:
 	current_wave_id = -1
@@ -43,7 +51,6 @@ func start_next_wave() -> bool:
 		if marker_index == prev_marker_index:
 			marker_index = 0 if marker_index == spawn_markers.size() - 1 else marker_index + 1
 		var spawn_marker: Marker3D = spawn_markers[marker_index]
-		#enemy.global_position = spawn_marker.global_position 	## since added as child to Marker
 		enemy.attack_target = player
 		enemy.death.connect(on_enemy_death)
 		current_enemy_count += 1
@@ -88,12 +95,28 @@ func on_enemy_death() -> void:
 func on_game_over() -> void:
 	if WaveManager.is_game_over == true:
 		return
-	print("CALLED GAME_OVER")
 	WaveManager.is_game_over = true
-	current_wave_id = -1
-	current_enemy_count = 0
 	var end_timer := get_tree().create_timer(0.5)
 	await end_timer.timeout
 	for enemy_parents in spawn_markers:
 		for item in enemy_parents.get_children():
 			item.queue_free()
+	current_enemy_count = 0
+
+
+func on_game_restart() -> void:
+	if player is Player:
+		player.global_transform = restart_configs["player"]["global_transform"]
+		player.hearts = restart_configs["player"]["health"]
+	current_wave_id = restart_configs["wave_id"]
+	is_game_over = false
+
+
+func set_restart_configs() -> void:
+	restart_configs = {
+		"player": {
+			"health": player.hearts,
+			"global_transform": player.global_transform
+		},
+		"wave_id": current_wave_id,
+	}
