@@ -33,6 +33,9 @@ func _ready() -> void:
 
 
 func start_next_wave() -> bool:
+	spawn_markers = get_tree().get_nodes_in_group("SPAWN_POINTS")
+	print(spawn_markers)
+	set_can_spawn()
 	if not can_spawn:
 		return false
 	current_wave_id += 1
@@ -79,6 +82,7 @@ func set_can_spawn() -> void:
 				can_spawn = false
 				print("This level has non MARKER3D SPAWN_POINTS, making it a faulty set.")
 				break
+		can_spawn = true
 		print("This level has spawn point count of ", spawn_markers.size())
 
 

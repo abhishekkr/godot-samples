@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://c5q6vhsodq7em"]
+
+[ext_resource type="Script" uid="uid://b1xkoqtwxrs58" path="res://scenes/level_generator.gd" id="1_uy3se"]
+[ext_resource type="PackedScene" uid="uid://jbmrdk1jdstc" path="res://entities/player.tscn" id="2_1uu5p"]
+[ext_resource type="PackedScene" uid="uid://08hnc0y8a8p3" path="res://entities/weapon.tscn" id="3_aivgq"]
+[ext_resource type="PackedScene" uid="uid://dfgxvxyhs8ntp" path="res://entities/bullet.tscn" id="4_ptusn"]
+
+[node name="LevelGenerator" type="Node3D" unique_id=181483950]
+script = ExtResource("1_uy3se")
+
+[node name="TempHUD" type="CanvasLayer" parent="." unique_id=2053884609]
+
+[node name="Control" type="Control" parent="TempHUD" unique_id=723519758]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Iteration" type="Label" parent="TempHUD/Control" unique_id=260078142]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "0"
+
+[node name="Temp" type="Node3D" parent="." unique_id=70506790]
+
+[node name="TestTimer" type="Timer" parent="Temp" unique_id=1868232342]
+wait_time = 2.5
+
+[node name="Camera3D2" type="Camera3D" parent="Temp" unique_id=1717587470]
+transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 5, 4)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Temp" unique_id=1360025089]
+transform = Transform3D(1, 0, 0, 0, 0.9961947, 0.08715574, 0, -0.08715574, 0.9961947, 0, 10.8232155, 5.8790126)
+shadow_enabled = true
+shadow_opacity = 0.89
+shadow_blur = 0.0
+
+[node name="Player" parent="Temp" unique_id=1724721702 node_paths=PackedStringArray("camera_pivot") instance=ExtResource("2_1uu5p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.90413, 0)
+camera_pivot = NodePath("../Camera3D2")
+my_weapon = ExtResource("3_aivgq")
+my_bullet = ExtResource("4_ptusn")
+
+[node name="Level" type="Node3D" parent="." unique_id=884472855]
+unique_name_in_owner = true
+
+[connection signal="timeout" from="Temp/TestTimer" to="." method="_on_test_timer_timeout"]
