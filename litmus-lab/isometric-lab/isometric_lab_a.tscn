@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://jema1f4ckyv8"]
+
+[ext_resource type="PackedScene" uid="uid://cmq3kxhuf5y2e" path="res://isometric-lab/iso_car.tscn" id="1_2xngi"]
+[ext_resource type="PackedScene" uid="uid://ddra116gi63jb" path="res://isometric-lab/sample_player.tscn" id="2_1kvyt"]
+
+[node name="IsometricLabA" type="Node2D" unique_id=730268884]
+
+[node name="Node2D" type="Node2D" parent="." unique_id=887045802]
+y_sort_enabled = true
+
+[node name="IsoCar" parent="Node2D" unique_id=847248624 instance=ExtResource("1_2xngi")]
+position = Vector2(435, 306)
+
+[node name="SamplePlayer" parent="Node2D" unique_id=1319228954 instance=ExtResource("2_1kvyt")]
+position = Vector2(418, 421)

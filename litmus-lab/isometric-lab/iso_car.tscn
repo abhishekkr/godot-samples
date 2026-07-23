@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cmq3kxhuf5y2e"]
+
+[ext_resource type="Texture2D" uid="uid://mssi3svyunn2" path="res://assets/abionic/iso-car.png" id="1_cu5sb"]
+
+[node name="Car" type="StaticBody2D" unique_id=1899538354]
+
+[node name="CarSprite" type="Sprite2D" parent="." unique_id=847248624]
+position = Vector2(0, 39)
+texture = ExtResource("1_cu5sb")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=233339648]
+polygon = PackedVector2Array(200, 235, -342, 1, -239, -133, 318, 102)
