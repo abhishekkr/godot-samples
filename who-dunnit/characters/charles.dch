@@ -1,0 +1,40 @@
+{
+"@path": "res://addons/dialogic/Resources/character.gd",
+"@subpath": NodePath(""),
+&"_translation_id": "",
+&"color": Color(1, 1, 1, 1),
+&"custom_info": {
+"prefix": "",
+"sound_mood_default": "",
+"sound_moods": {},
+"style": "",
+"suffix": ""
+},
+&"default_portrait": "idle",
+&"description": "https://picrew.me/en/image_maker/11188",
+&"display_name": "Cop",
+&"mirror": false,
+&"nicknames": ["Charles"],
+&"offset": Vector2(0, -5),
+&"portraits": {
+"idle": {
+"export_overrides": {
+"image": ""
+},
+"mirror": false,
+"offset": Vector2(0, 0),
+"scale": 1,
+"scene": "res://characters/portraits/layered_portrait_charles_idle.tscn"
+},
+"talking": {
+"export_overrides": {
+"image": ""
+},
+"mirror": false,
+"offset": Vector2(0, 0),
+"scale": 1,
+"scene": "res://characters/portraits/layered_portrait_charles_talking.tscn"
+}
+},
+&"scale": 0.75
+}

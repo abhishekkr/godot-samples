@@ -15,7 +15,7 @@
 
 * _WIP_ [3D Top-Down Shooter](./threedy-shooter) by [_Age of Asparagus_](https://www.youtube.com/playlist?list=PLaGRTLvEbVzyUMwjUPgrreyRE3AY8jhOK)
 
-* _WIP_ [Who Dunnit](./who-dunnit) by [Bean Bunny](https://www.youtube.com/playlist?list=PLC4nc6Sp68WKOP1IVPj6Wv_HlBGvFBnWi); built with **Dialogic 2.0-alpha-20**
+* [Who Dunnit](./who-dunnit) by [Bean Bunny](https://www.youtube.com/playlist?list=PLC4nc6Sp68WKOP1IVPj6Wv_HlBGvFBnWi); built with **Dialogic 2.0-alpha-20**
 
 ![godot-samples logo](godot-samples.png "Sample Godot Projects")
 

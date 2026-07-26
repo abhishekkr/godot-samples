@@ -1,0 +1,13 @@
+if {Audio} == true:
+	audio "res://assets/abk-game-music-did-something-else.wav"
+[background arg="res://assets/bg/hallway2.jpg" fade="0.5" wait="true"]
+join brie (Idle) rightmost [mirrored="true"]
+join charles (idle) leftmost [mirrored="true"]
+brie (Annoyed): My sister send me to report a robbery. She called the cops before.
+charles (talking): Please re-iterate the events?
+update charles (idle)
+brie (Talking): It was weather.. I skipped the maintenance work last year.
+leave charles
+leave brie
+set {Brie} += 1.0
+jump finale/

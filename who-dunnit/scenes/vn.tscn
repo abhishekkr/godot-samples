@@ -1,0 +1,170 @@
+[gd_scene format=3 uid="uid://bomvngsnlbtrf"]
+
+[ext_resource type="Script" uid="uid://b75mqi7dcje0r" path="res://scenes/vn.gd" id="1_6f7bg"]
+[ext_resource type="Texture2D" uid="uid://dyib4rfwesgwm" path="res://assets/bg/c5.jpg" id="2_w7f32"]
+
+[node name="VN" type="Node2D" unique_id=746055343]
+script = ExtResource("1_6f7bg")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=719433251]
+layer = 2
+
+[node name="VNPage" type="Control" parent="CanvasLayer" unique_id=53818925]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="CanvasLayer/VNPage" unique_id=1110124111]
+emission_shape = 4
+emission_points = PackedVector2Array(-400, 0, -300, -50, -200, -150, -100, -25, 0, 0, 100, -25, 200, -150, 300, 50, 400, 0)
+emission_colors = PackedColorArray(0.6156863, 0, 0, 1, 0.14348999, 0.9999998, 0.12722558, 1, 1, 0.84705883, 0.03137255, 1)
+gravity = Vector2(0, 255)
+initial_velocity_min = 19.8
+initial_velocity_max = 79.21
+linear_accel_min = 5.0
+linear_accel_max = 15.0
+radial_accel_min = 5.0
+radial_accel_max = 25.0
+tangential_accel_min = -10.0
+tangential_accel_max = 10.0
+angle_min = -45.0
+angle_max = 45.0
+scale_amount_min = 10.9
+scale_amount_max = 40.6
+color = Color(1, 1, 1, 0.7529412)
+hue_variation_min = -0.3
+hue_variation_max = 0.4
+
+[node name="BtnRestart" type="Button" parent="CanvasLayer/VNPage" unique_id=1931247730]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -35.5
+offset_right = 104.0
+offset_bottom = 35.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.94879013, 0.8785273, 0.56360435, 1)
+theme_override_font_sizes/font_size = 45
+text = "RE:START"
+
+[node name="StartPage" type="Control" parent="CanvasLayer" unique_id=1587977018]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/StartPage" unique_id=1472358079]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_w7f32")
+expand_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/StartPage" unique_id=1199234860]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/StartPage/VBoxContainer" unique_id=1642109797]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9967013, 0, 0.035116196, 1)
+theme_override_font_sizes/font_size = 45
+text = "So.. do you know"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer/StartPage/VBoxContainer" unique_id=1394913538]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.12955844, 0.12955847, 0.12955844, 1)
+theme_override_colors/font_shadow_color = Color(0.5211406, 0.5211406, 0.5211405, 0)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/shadow_outline_size = 1
+theme_override_font_sizes/font_size = 75
+text = "WHODUNNIT?"
+horizontal_alignment = 1
+
+[node name="BtnStart" type="Button" parent="CanvasLayer/StartPage/VBoxContainer" unique_id=576609005]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.44539148, 0.94967014, 0.9475586, 1)
+theme_override_colors/font_hover_color = Color(0.004889074, 0.59199387, 0.52136564, 1)
+theme_override_font_sizes/font_size = 65
+text = "Start"
+
+[node name="MuteToggle" type="CheckButton" parent="CanvasLayer" unique_id=79218015]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -93.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "Mute:"
+
+[node name="EscapePage" type="Control" parent="CanvasLayer" unique_id=679384000]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/EscapePage" unique_id=1339830257]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="BtnResume" type="Button" parent="CanvasLayer/EscapePage/VBoxContainer" unique_id=591063247]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.44539148, 0.94967014, 0.9475586, 1)
+theme_override_colors/font_hover_color = Color(0.004889074, 0.59199387, 0.52136564, 1)
+theme_override_font_sizes/font_size = 65
+text = "Resume"
+
+[node name="BtnEndGame" type="Button" parent="CanvasLayer/EscapePage/VBoxContainer" unique_id=313940670]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.44539148, 0.94967014, 0.9475586, 1)
+theme_override_colors/font_hover_color = Color(0.004889074, 0.59199387, 0.52136564, 1)
+theme_override_font_sizes/font_size = 65
+text = "End This."
+
+[connection signal="pressed" from="CanvasLayer/VNPage/BtnRestart" to="." method="_on_btn_restart_pressed"]
+[connection signal="pressed" from="CanvasLayer/StartPage/VBoxContainer/BtnStart" to="." method="_on_btn_start_pressed"]
+[connection signal="toggled" from="CanvasLayer/MuteToggle" to="." method="_on_mute_toggle_toggled"]
+[connection signal="pressed" from="CanvasLayer/EscapePage/VBoxContainer/BtnResume" to="." method="_on_btn_resume_pressed"]
+[connection signal="pressed" from="CanvasLayer/EscapePage/VBoxContainer/BtnEndGame" to="." method="_on_btn_end_game_pressed"]

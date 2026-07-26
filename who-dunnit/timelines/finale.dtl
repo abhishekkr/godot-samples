@@ -1,0 +1,18 @@
+if {Audio} == true:
+	audio "res://assets/abk-game-music-did-something-else.wav"
+[background arg="res://assets/bg/c5.jpg" fade="0.5" transition="Push Up" wait="true"]
+join charles (idle) rightmost
+if {Brie} <= 0.0:
+	charles (talking): Why can't people just be honest to each other?
+	join alice (Smile) leftmost
+else:
+	charles (talking): It's good you came first and told the truth.. take care.
+	join brie (Annoyed) leftmost
+leave charles
+if {Brie} <= 0.0:
+	join brie (Annoyed) rightmost [mirrored="true"]
+	brie (Talking): Sorry!!!
+else:
+	join alice (Smile) rightmost [mirrored="true"]
+	alice (Talk): I knew you didn't mantain it properly. Next time, just be honest first.
+[signal arg="finale"]

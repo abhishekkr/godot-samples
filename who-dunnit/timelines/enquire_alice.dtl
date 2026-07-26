@@ -1,0 +1,13 @@
+if {Audio} == true:
+	audio "res://assets/abk-game-music-did-something-else.wav"
+[background arg="res://assets/bg/hallway2.jpg" fade="0.5" wait="true"]
+join alice (Idle) rightmost [mirrored="true"]
+join charles (idle) leftmost [mirrored="true"]
+alice (Talk): There seems to have been a robbery at our place. Please help!
+charles (talking): Can you tell me what happened in detail?
+update charles (idle)
+alice (Talk): I just came back from today after 5 years. You would have to ask Brie..
+leave alice
+leave charles
+set {Brie} -= 1.0
+jump enquire_brie/

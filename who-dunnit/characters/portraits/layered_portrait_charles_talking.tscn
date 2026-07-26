@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://bw4qtd6gbbwfy"]
+
+[ext_resource type="Script" uid="uid://cfwf5d8exox4f" path="res://addons/dialogic/Modules/LayeredPortrait/custom_layered_portrait.gd" id="1_uubi5"]
+[ext_resource type="Texture2D" uid="uid://bl67tcbxfw74p" path="res://assets/Charles/cop-base.png" id="2_7rf72"]
+[ext_resource type="Texture2D" uid="uid://bfs0mc031s7mc" path="res://assets/Charles/cop-mouth-closed.png" id="3_0co2f"]
+[ext_resource type="Texture2D" uid="uid://brlxtabl63vq5" path="res://assets/Charles/cop-mouth-open.png" id="4_71m55"]
+
+[sub_resource type="Animation" id="Animation_t83wq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Closed:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Open:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_7rf72"]
+resource_name = "talk"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Closed:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Open:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0co2f"]
+_data = {
+&"RESET": SubResource("Animation_t83wq"),
+&"talk": SubResource("Animation_7rf72")
+}
+
+[node name="CharlesIdle" type="CanvasGroup" unique_id=1233297696]
+script = ExtResource("1_uubi5")
+
+[node name="Base" type="Sprite2D" parent="." unique_id=1199709603]
+texture = ExtResource("2_7rf72")
+
+[node name="Mouth" type="Node2D" parent="." unique_id=1919560544]
+position = Vector2(-130, 129)
+
+[node name="Closed" type="Sprite2D" parent="Mouth" unique_id=1060850263]
+position = Vector2(-5, -4)
+texture = ExtResource("3_0co2f")
+
+[node name="Open" type="Sprite2D" parent="Mouth" unique_id=2068230689]
+texture = ExtResource("4_71m55")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Mouth" unique_id=1975105953]
+libraries/ = SubResource("AnimationLibrary_0co2f")
+autoplay = &"talk"

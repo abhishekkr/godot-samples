@@ -1,0 +1,18 @@
+if {Audio} == true:
+	audio "res://assets/abk-game-music-did-something-else.wav"
+[background arg="res://assets/bg/c4_noflowers.jpg" fade="0.5" wait="true"]
+join alice leftmost
+alice (Talk): There has been a robbery!
+join brie (Talking) rightmost [animation="Instant In" mirrored="true"]
+brie (Talking): Wh..[pause=0.2]What do you mean..[pause=1.0]\
+When? Where?..[pause=0.75]\
+What's been robbed?
+alice (Idle): One of us need to go and register the complaint?
+- Alice
+	leave alice
+	leave brie
+	jump enquire_alice/
+- Brie
+	leave alice
+	leave brie
+	jump enquire_brie/

@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://c80r7kbk32qne"]
+
+[ext_resource type="Script" uid="uid://cfwf5d8exox4f" path="res://addons/dialogic/Modules/LayeredPortrait/custom_layered_portrait.gd" id="1_uubi5"]
+[ext_resource type="Texture2D" uid="uid://bl67tcbxfw74p" path="res://assets/Charles/cop-base.png" id="2_mo3wj"]
+[ext_resource type="Texture2D" uid="uid://bfs0mc031s7mc" path="res://assets/Charles/cop-mouth-closed.png" id="3_te1jt"]
+
+[node name="CharlesIdle" type="CanvasGroup" unique_id=1233297696]
+script = ExtResource("1_uubi5")
+
+[node name="Base" type="Sprite2D" parent="." unique_id=1199709603]
+texture = ExtResource("2_mo3wj")
+
+[node name="Mouth" type="Node2D" parent="." unique_id=1919560544]
+position = Vector2(-130, 129)
+
+[node name="Closed" type="Sprite2D" parent="Mouth" unique_id=1060850263]
+position = Vector2(-5, -4)
+texture = ExtResource("3_te1jt")
