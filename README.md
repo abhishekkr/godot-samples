@@ -17,6 +17,8 @@
 
 * [Who Dunnit](./who-dunnit) by [Bean Bunny](https://www.youtube.com/playlist?list=PLC4nc6Sp68WKOP1IVPj6Wv_HlBGvFBnWi); built with **Dialogic 2.0-alpha-20**
 
+* _WIP_ [3D ARPG](./bramwell-3d-arpg) by [Bramwell Williams](https://gamedev.tv/courses/godot-rpg/view); at GameDev.tv
+
 ![godot-samples logo](godot-samples.png "Sample Godot Projects")
 
 ---
